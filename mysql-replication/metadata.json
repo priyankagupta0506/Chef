@@ -1,0 +1,57 @@
+{
+  "name": "mysql-replication",
+  "description": "Installs/Configures mysql-replication",
+  "long_description": "# mysql-replication\n\n## Description\nThis cookbook is a wrapper under the [mysql](https://supermarket.chef.io/cookbooks/mysql) cookbook is newer than version 6. It contains two lwrp which configures mysql master and mysql slave.\n\n## Requirements\n\n### Platforms\n- amazon 2014\n- redhat 6\n- centos 6\n- scientific 6\n- fedora 18, 19\n- debian 7\n- ubuntu >= 12.04\n\n### Cookbooks\n- [mysql](https://supermarket.chef.io/cookbooks/mysql), ~> 6.0\n\n\n## Resources/Providers\n\n### mysql_master\nconfigures mysql server as master.\n\n#### Attributes\n\n|Attribute|Description|Type|Default|\n|---------|-----------|----|-------|\n|:instance|This attribute should match with mysql_service name|String||\n|:id|Server-id from mysql config|Integer||\n|:log_bin|log-bin from mysql config|String|'mysql-bin'|\n|:user|Name of replication user|String|'repl'|\n|:host|Mask of the hosts which will be allowed replication|String|'%'|\n|:password|Password for replication user|String||\n|:binlog_do_db|binlog-do-db from mysql config|Array, String||\n|:binlog_ignore_db|binlog-ignore-db from mysql config|Array, String||\n|:binlog_format|binlog-format from mysql config|String|'MIXED'|\n|:options|Hash of options which will be passed to config file|Hash||\n\n### mysql_slave\nconfigures mysql server as slave, does dump of specified databases and enables replication.\n\n#### Attributes\n\n|Attribute|Description|Type|Default|\n|---------|-----------|----|-------|\n|:instance|This attribute should match with mysql_service name|String||\n|:id|Server-id from mysql config|Integer||\n|:master_host|Master host's ip address or fqdn|String||\n|:master_port|Master host's mysql port|Integer||\n|:user|Name of replication user|String|'repl'|\n|:password|Password for replication user|String||\n|:database|List of databases, which will be dumped and replicated.|String, Array||\n|:replicate_ignore_db|replicate-ignore-db from mysql config|Array, String||\n|:timeout|Timeout for operations getting and uploading the dump|Integer|3600|\n|:options|Hash of options which will be passed to config file|Hash||\n\n\n## Examples\nYou may see examples in fixture cookbook: [test/fixtures/lwrp_test/recipes/default.rb](test/fixtures/lwrp_test/recipes/default.rb)\n\n## Authors\n- Author:: Pavel Yudin (pyudin@parallels.com)\n",
+  "maintainer": "Pavel Yudin",
+  "maintainer_email": "pyudin@parallels.com",
+  "license": "Apache 2.0",
+  "platforms": {
+    "amazon": ">= 0.0.0",
+    "redhat": ">= 0.0.0",
+    "centos": ">= 0.0.0",
+    "scientific": ">= 0.0.0",
+    "fedora": ">= 0.0.0",
+    "debian": ">= 0.0.0",
+    "ubuntu": ">= 0.0.0"
+  },
+  "dependencies": {
+
+  },
+  "recommendations": {
+
+  },
+  "suggestions": {
+
+  },
+  "conflicting": {
+
+  },
+  "providing": {
+
+  },
+  "replacing": {
+
+  },
+  "attributes": {
+
+  },
+  "groupings": {
+
+  },
+  "recipes": {
+
+  },
+  "version": "2.0.0",
+  "source_url": "https://github.com/parallels-cookbooks/mysql-replication",
+  "issues_url": "https://github.com/parallels-cookbooks/mysql-replication/issues",
+  "privacy": false,
+  "chef_versions": [
+
+  ],
+  "ohai_versions": [
+
+  ],
+  "gems": [
+
+  ]
+}

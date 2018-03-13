@@ -1,0 +1,21 @@
+DEPENDENCIES
+  lwrp_test
+    path: test/fixtures/lwrp_test
+  mysql-replication
+    path: .
+    metadata: true
+
+GRAPH
+  compat_resource (12.16.3)
+  lwrp_test (0.1.0)
+    mysql (>= 0.0.0)
+    mysql-replication (>= 0.0.0)
+  mysql (7.2.0)
+    smf (>= 0.0.0)
+    yum-mysql-community (>= 0.0.0)
+  mysql-replication (1.0.1)
+  rbac (1.0.3)
+  smf (2.2.8)
+    rbac (>= 1.0.1)
+  yum-mysql-community (2.1.0)
+    compat_resource (>= 12.16.3)
