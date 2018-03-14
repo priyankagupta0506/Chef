@@ -5,6 +5,7 @@
 # Copyright 2015 Pavel Yudin
 #
 
-package "resources::mysql_master" do
-  action :install
+mysql_master do
+  port '3306'
+  action [:create]
 end
