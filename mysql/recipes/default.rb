@@ -1,4 +1,4 @@
-mysql_service 'mysql' do
+mysql_service 'ops' do
   port '3306'
   version '5.5'
   initial_root_password 'mysql'
