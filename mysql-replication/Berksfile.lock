@@ -10,7 +10,7 @@ GRAPH
   lwrp_test (0.1.0)
     mysql (>= 0.0.0)
     mysql-replication (>= 0.0.0)
-  mysql (7.2.0)
+  mysql (8.0.0)
     smf (>= 0.0.0)
     yum-mysql-community (>= 0.0.0)
   mysql-replication (1.0.1)
