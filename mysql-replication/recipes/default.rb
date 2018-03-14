@@ -5,4 +5,4 @@
 # Copyright 2015 Pavel Yudin
 #
 
-mysql::master
+package "mysql_master"
