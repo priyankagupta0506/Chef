@@ -5,4 +5,10 @@
 # Copyright 2015 Pavel Yudin
 #
 
-package "mysql_master"
+package "mysql, ~> 6.0" do
+  acion :install
+end
+
+package "resources::mysql_master" do
+  action :install
+end
