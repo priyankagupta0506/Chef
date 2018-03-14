@@ -4,8 +4,3 @@ mysql_service 'mysql' do
   initial_root_password 'mysql'
   action [:create, :start]
 end
-mysql_config 'mysql' do
-  source 'my_extra_settings.erb'
-  notifies :restart, 'mysql_service[mysql]'
-  action :create
-end
