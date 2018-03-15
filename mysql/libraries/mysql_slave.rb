@@ -1,5 +1,5 @@
 #
-# Cookbook Name:: mysql-replication
+# Cookbook Name:: mysql
 # Resource:: mysql_slave
 #
 # Copyright 2015 Pavel Yudin
@@ -36,7 +36,7 @@ action :create do
   databases = new_resource.database ? [new_resource.database].flatten : master_databases
 
   mysql_config 'slave' do
-    cookbook 'mysql-replication'
+    cookbook 'mysql'
     instance new_resource.name
     source 'slave.conf.erb'
     variables id: new_resource.id || node['ipaddress'].split('.').join(''),
