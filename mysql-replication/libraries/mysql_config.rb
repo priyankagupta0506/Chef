@@ -12,7 +12,7 @@ module MysqlCookbook
     property :version, String, default: lazy { default_major_version }, desired_state: false
 
     require_relative 'helpers'
-    include MysqlCookbook::HelpersBase
+    include MysqlReplication::Helpers
 
     provides :mysql_config
 
