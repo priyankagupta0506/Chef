@@ -19,9 +19,9 @@
 property :instance, kind_of: String, name_attribute: true
 property :id, kind_of: Integer
 property :log_bin, kind_of: String, default: 'mysql-bin'
-property :user, kind_of: String, default: 'repl'
+property :user, kind_of: String, default: 'root'
 property :host, kind_of: String, default: '%'
-property :password, kind_of: String, required: false
+property :password, kind_of: String, required: true
 property :binlog_do_db, kind_of: [Array, String]
 property :binlog_ignore_db, kind_of: [Array, String]
 property :binlog_format, kind_of: String, default: 'MIXED'
@@ -42,15 +42,15 @@ action :create do
               binlog_ignore_db: new_resource.binlog_ignore_db,
               options: new_resource.options
     action :create
-    notifies :restart, "mysql_service[#{new_resource.name}]", :immediately
+    notifies :restart, "mysql_service[ops]", :immediately
   end
 
   execute 'Grant permissions' do
-    command "echo \" GRANT SELECT,REPLICATION CLIENT,RELOAD,REPLICATION SLAVE ON *.* TO '#{new_resource.user}'@'#{new_resource.host}'
-             IDENTIFIED BY PASSWORD '#{mysql_password(new_resource.password)}' \" | mysql -S #{mysql_socket}"
-    environment 'MYSQL_PWD' => mysql_instance.initial_root_password
-    not_if "echo \"SHOW GRANTS FOR '#{new_resource.user}'@'#{new_resource.host}';\" | mysql -S #{mysql_socket}",
-           environment: { 'MYSQL_PWD' => mysql_instance.initial_root_password }
+    command "echo \" GRANT SELECT,REPLICATION CLIENT,RELOAD,REPLICATION SLAVE ON *.* TO 'root'@'%'
+             IDENTIFIED BY PASSWORD 'mysql' \" | mysql -S #{mysql_socket}"
+    environment 'MYSQL_PWD' => 'mysql'
+    not_if "echo \"SHOW GRANTS FOR 'root'@'%';\" | mysql -S #{mysql_socket}",
+           environment: { 'MYSQL_PWD' => 'mysql' }
   end
 end
 
