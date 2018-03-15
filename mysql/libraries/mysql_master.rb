@@ -1,5 +1,5 @@
 #
-# Cookbook Name:: mysql-replication
+# Cookbook Name:: mysql
 # Resource:: mysql_master
 #
 # Copyright 2015 Pavel Yudin
