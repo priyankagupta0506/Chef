@@ -32,7 +32,7 @@ default_action :create
 
 action :create do
   mysql_config 'master' do
-    cookbook 'mysql-replication'
+    cookbook 'mysql'
     instance new_resource.name
     source 'master.conf.erb'
     variables id: new_resource.id || node['ipaddress'].split('.').join(''),
