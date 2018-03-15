@@ -21,7 +21,7 @@ property :id, kind_of: Integer
 property :log_bin, kind_of: String, default: 'mysql-bin'
 property :user, kind_of: String, default: 'repl'
 property :host, kind_of: String, default: '%'
-property :password, kind_of: String, required: true
+property :password, kind_of: String, required: false
 property :binlog_do_db, kind_of: [Array, String]
 property :binlog_ignore_db, kind_of: [Array, String]
 property :binlog_format, kind_of: String, default: 'MIXED'
