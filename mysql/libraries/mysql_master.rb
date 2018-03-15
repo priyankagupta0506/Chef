@@ -16,7 +16,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-property :instance, kind_of: String, name_attribute: true
+#property :instance, kind_of: String, name_attribute: true
 property :id, kind_of: Integer
 property :log_bin, kind_of: String, default: 'mysql-bin'
 property :user, kind_of: String, default: 'repl'
