@@ -13,7 +13,7 @@ mysql_service 'ops' do
   action [:create, :start]
 end
 
-mysql_master 'default' do
+mysql_master 'ops' do
   binlog_do_db %w(test1)
   password 'mysql'
 end
