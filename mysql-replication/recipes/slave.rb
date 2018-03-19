@@ -24,6 +24,6 @@ mysql_slave 'ops' do
   relay_log '/var/log/mysql/mysql-relay-bin.log
 end
 
-execute 'create test1' do
-  command 'mysql -u root -h 127.0.0.1 -pmysql | echo "create database if not exists test1;"'
+execute "create test1" do
+  command "mysql -u root -h 127.0.0.1 -pmysql | echo "create database if not exists test1;""
 end
