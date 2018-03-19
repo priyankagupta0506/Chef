@@ -12,14 +12,12 @@ mysql_master 'ops' do
   password 'mysql'
 end
 
-mysql_slave 'slave' do
-  master_host '	35.172.108.141'
+mysql_slave 'ops' do
+  master_host '35.172.108.141'
   id 2
   binlog_do_db %w(test1)
-  replicate_do_db 'test1'
+  replicate_do_db %w(test1)
   relay_log '/var/log/mysql/mysql-relay-bin.log
-  password 'mysql'
-  replicate_ignore_db 'mysql'
 end
 
 execute 'Create database test1' do
