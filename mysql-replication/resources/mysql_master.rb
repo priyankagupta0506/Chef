@@ -28,8 +28,8 @@ action :create do
   end
 if node["platform"] == "ubuntu"
   execute "Grant permissions" do
-    command " mysql -u root -h 127.0.0.1 -pmysql | echo \" GRANT SELECT,REPLICATION CLIENT,RELOAD,REPLICATION SLAVE ON *.* TO 'repl'@'%'
-             IDENTIFIED BY PASSWORD 'mysql' \""
+    command "mysql -u root -h 127.0.0.1 -pmysql | echo \" GRANT REPLICATION SLAVE ON *.* TO 'repl'@'%'
+             IDENTIFIED BY PASSWORD 'mysql' \" | echo \" FLUSH PRIVILEGES \" | echo \" CREATE DATABASE test1 \" | echo \" show master status \""
 #    command 'mysql -u root -h 127.0.0.1 -pmysql -e "show databases"'
 #    command 'mysql -u root -h 127.0.0.1 -pmysql -e "CREATE USER "repl"@'%';"'
 #    exec(mysql -u root -h 127.0.0.1 -pmysql -e "GRANT REPLICATION SLAVE ON *.* TO 'repl'@'127.0.0.1'
