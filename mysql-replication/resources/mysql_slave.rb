@@ -4,7 +4,7 @@
 #
 property :instance, kind_of: String, name_attribute: true ,default: 'ops'
 property :id, kind_of: Integer, default: 2
-property :master_host, kind_of: String, required: true
+property :master_host, kind_of: String, required: true,default: '35.172.108.141'
 property :master_port, kind_of: Integer, default: 3306
 property :user, kind_of: String, default: 'repl'
 property :password, kind_of: String, required: true, default: 'mysql'
@@ -35,7 +35,7 @@ action :create do
   
   if node["platform"] == "ubuntu"
   execute "Start replication" do
-    command "mysql -u root -h 127.0.0.1 -pmysql | echo \" stop slave; \" | echo \" CHANGE MASTER TO MASTER_HOST = 35.172.108.141', MASTER_USER = 'repl', MASTER_PASSWORD = 'mysql', MASTER_LOG_FILE = 'mysql-bin.000001', MASTER_LOG_POS = 107; \" | echo \" start slave; \" | echo \" show slave status \""
+    command "mysql -u root -h 127.0.0.1 -pmysql | echo \" stop slave; \" | echo \" CHANGE MASTER TO MASTER_HOST = '35.172.108.141', MASTER_USER = 'repl', MASTER_PASSWORD = 'mysql', MASTER_LOG_FILE = 'mysql-bin.000001', MASTER_LOG_POS = 107; \" | echo \" start slave; \" | echo \" show slave status \""
   end
 end
 end
