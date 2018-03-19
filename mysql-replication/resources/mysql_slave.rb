@@ -10,6 +10,7 @@ property :user, kind_of: String, default: 'repl'
 property :password, kind_of: String, required: true, default: 'mysql'
 property :database, kind_of: [String, Array]
 property :replicate_ignore_db, kind_of: [String, Array], default: 'mysql'
+property :replicate_do_db, kind_of: [String, Array], default: 'test1'
 property :timeout, kind_of: Integer
 property :options, kind_of: Hash
 
@@ -28,9 +29,10 @@ action :create do
     variables id: new_resource.id || node['ipaddress'].split('.').join(''),
               database: new_resource.database,
               replicate_ignore_db: new_resource.replicate_ignore_db,
+              replicate_do_db: new_resource.replicate_do_db,
               options: new_resource.options
     action :create
-    notifies :restart, "mysql_service[#{new_resource.name}]", :immediately
+    notifies :restart, "mysql_service[ops]", :immediately
   end
   
   if node["platform"] == "ubuntu"
