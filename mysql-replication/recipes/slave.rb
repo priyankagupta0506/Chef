@@ -9,6 +9,7 @@ mysql_service 'ops' do
   bind_address '0.0.0.0'
   port 3306
   initial_root_password 'mysql'
+  socket '/var/run/mysql-ops/mysqld.sock'
   mysqld_options 'innodb_buffer_pool_size' => '64M'
   action [:create, :start]
 end
