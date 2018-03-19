@@ -18,6 +18,7 @@ mysql_slave 'ops' do
   master_host '35.172.108.141'
   master_port 3306
   instance 'ops'
+  password 'mysql'
   id 2
   user 'repl'
 end
