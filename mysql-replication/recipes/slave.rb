@@ -21,7 +21,7 @@ mysql_slave 'ops' do
   user 'repl'
   binlog_do_db %w(test1)
   replicate_do_db %w(test1)
-  relay_log '/var/log/mysql/mysql-relay-bin.log
+  relay_log '/var/log/mysql/mysql-relay-bin.log'
 end
 
 execute "create test1" do
