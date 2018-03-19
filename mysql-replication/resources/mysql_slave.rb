@@ -36,13 +36,6 @@ action :create do
   if node["platform"] == "ubuntu"
   execute "Start replication" do
     command "mysql -u root -h 127.0.0.1 -pmysql | echo \" stop slave; \" | echo \" CHANGE MASTER TO MASTER_HOST = 35.172.108.141', MASTER_USER = 'repl', MASTER_PASSWORD = 'mysql', MASTER_LOG_FILE = 'mysql-bin.000001', MASTER_LOG_POS = 107; \" | echo \" start slave; \" | echo \" show slave status \""
-#    command 'mysql -u root -h 127.0.0.1 -pmysql -e "show databases"'
-#    command 'mysql -u root -h 127.0.0.1 -pmysql -e "CREATE USER "repl"@'%';"'
-#    exec(mysql -u root -h 127.0.0.1 -pmysql -e "GRANT REPLICATION SLAVE ON *.* TO 'repl'@'127.0.0.1'
-#             IDENTIFIED BY PASSWORD 'mysql'") | mysql -S /var/run/mysql-ops/mysqld.sock)
-
-#    environment 'MYSQL_PWD' => mysql_service[ops].initial_root_password
-#           environment: { 'MYSQL_PWD' => mysql_service[ops].initial_root_password }
   end
 end
 
