@@ -33,35 +33,48 @@ action :create do
     notifies :restart, "mysql_service[#{new_resource.name}]", :immediately
   end
   
-  ruby_block 'Start replication' do
-    block do
-      master_file, master_position = get_master_file_and_position(dump_file)
+  if node["platform"] == "ubuntu"
+  execute "Start replication" do
+    command "mysql -u root -h 127.0.0.1 -pmysql | echo \" stop slave; \" | echo \" CHANGE MASTER TO MASTER_HOST = 35.172.108.141', MASTER_USER = 'repl', MASTER_PASSWORD = 'mysql', MASTER_LOG_FILE = 'mysql-bin.000001', MASTER_LOG_POS = 107; \" | echo \" start slave; \" | echo \" show slave status \""
+#    command 'mysql -u root -h 127.0.0.1 -pmysql -e "show databases"'
+#    command 'mysql -u root -h 127.0.0.1 -pmysql -e "CREATE USER "repl"@'%';"'
+#    exec(mysql -u root -h 127.0.0.1 -pmysql -e "GRANT REPLICATION SLAVE ON *.* TO 'repl'@'127.0.0.1'
+#             IDENTIFIED BY PASSWORD 'mysql'") | mysql -S /var/run/mysql-ops/mysqld.sock)
 
-      command_master = %(
-        CHANGE MASTER TO
-        MASTER_HOST="35.172.108.141",
-        MASTER_PORT=3306,
-        MASTER_USER="repl",
-        MASTER_PASSWORD="mysql",
-        MASTER_LOG_FILE="mysql-bin.000001",
-        MASTER_LOG_POS=107;
-      )
-
-      result = Mixlib::ShellOut.new("echo '#{command_master}' | mysql -S #{mysql_socket}", env: { 'MYSQL_PWD' => mysql_instance.initial_root_password })
-      result.run_command
-      result.error!
-
-      result = Mixlib::ShellOut.new("echo 'start slave' | mysql -S #{mysql_socket}", env: { 'MYSQL_PWD' => mysql_instance.initial_root_password })
-      result.run_command
-      result.error!
-    end
-    not_if { replication_enabled?(mysql_socket, mysql_instance.initial_root_password) }
+#    environment 'MYSQL_PWD' => mysql_service[ops].initial_root_password
+#           environment: { 'MYSQL_PWD' => mysql_service[ops].initial_root_password }
   end
+end
+
+#  ruby_block 'Start replication' do
+#    block do
+#      master_file, master_position = get_master_file_and_position(dump_file)
+
+ #     command_master = %(
+ #       CHANGE MASTER TO
+ #       MASTER_HOST="35.172.108.141",
+ #       MASTER_PORT=3306,
+ #       MASTER_USER="repl",
+ #       MASTER_PASSWORD="mysql",
+ #       MASTER_LOG_FILE="mysql-bin.000001",
+ #       MASTER_LOG_POS=107;
+ #     )
+
+ #     result = Mixlib::ShellOut.new("echo '#{command_master}' | mysql -S #{mysql_socket}", env: { 'MYSQL_PWD' => mysql_instance.initial_root_password })
+ #     result.run_command
+ #     result.error!
+
+ #     result = Mixlib::ShellOut.new("echo 'start slave' | mysql -S #{mysql_socket}", env: { 'MYSQL_PWD' => mysql_instance.initial_root_password })
+ #     result.run_command
+ #     result.error!
+ #   end
+ #   not_if { replication_enabled?(mysql_socket, mysql_instance.initial_root_password) }
+ # end
 
 #  file dump_file do
 #    action :delete
 #  end
-end
+#end
 
 #  execute 'Get dump' do
 #    command "mysqldump -h #{new_resource.master_host} -P #{new_resource.master_port} \
