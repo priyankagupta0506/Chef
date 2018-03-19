@@ -38,7 +38,7 @@ action :create do
     command "mysql -u root -h 127.0.0.1 -pmysql | echo \" stop slave; \" | echo \" CHANGE MASTER TO MASTER_HOST = 35.172.108.141', MASTER_USER = 'repl', MASTER_PASSWORD = 'mysql', MASTER_LOG_FILE = 'mysql-bin.000001', MASTER_LOG_POS = 107; \" | echo \" start slave; \" | echo \" show slave status \""
   end
 end
-
+end
 #  ruby_block 'Start replication' do
 #    block do
 #      master_file, master_position = get_master_file_and_position(dump_file)
