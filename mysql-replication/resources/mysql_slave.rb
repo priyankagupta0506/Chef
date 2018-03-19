@@ -7,7 +7,7 @@ property :id, kind_of: Integer, default: 2
 property :master_host, kind_of: String, required: true
 property :master_port, kind_of: Integer, default: 3306
 property :user, kind_of: String, default: 'repl'
-property :password, kind_of: String, required: true
+property :password, kind_of: String, required: true, default: 'mysql'
 property :database, kind_of: [String, Array]
 property :replicate_ignore_db, kind_of: [String, Array], default: 'mysql'
 property :timeout, kind_of: Integer
