@@ -21,5 +21,5 @@ mysql_slave 'ops' do
 end
 
 execute 'Create database test1' do
-  command "mysql -u root -h 127.0.0.1 -pmysql | echo 'create database if not exists test1;'"
+  command 'mysql -u root -h 127.0.0.1 -pmysql | echo "create database if not exists test1;"'
 end
