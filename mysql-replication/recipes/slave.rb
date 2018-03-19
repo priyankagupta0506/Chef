@@ -7,8 +7,13 @@ mysql_service 'ops' do
   action [:create, :start]
 end
 
+mysql_master 'ops' do
+  binlog_do_db %w(test1)
+  password 'mysql'
+end
+
 mysql_slave 'slave' do
-  master_host '127.0.0.1'
+  master_host '	35.172.108.141'
   id 2
   binlog_do_db %w(test1)
   replicate_do_db 'test1'
