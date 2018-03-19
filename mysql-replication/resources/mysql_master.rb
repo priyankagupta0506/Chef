@@ -1,6 +1,6 @@
-property :instance, kind_of: String, name_attribute: true
-property :id, kind_of: Integer
-property :log_bin, kind_of: String, default: 'mysql-bin'
+property :instance, kind_of: String, name_attribute: true ,default: 'ops'
+property :id, kind_of: Integer,default: '1'
+property :log_bin, kind_of: String, default: '/var/log/mysql/mysql-bin.log'
 property :user, kind_of: String, default: 'repl'
 property :host, kind_of: String, default: '%'
 property :password, kind_of: String, required: true
@@ -15,7 +15,7 @@ default_action :create
 action :create do
   mysql_config 'master' do
     cookbook 'mysql-replication'
-    #instance new_resource.name
+    instance new_resource.name
     source 'master.conf.erb'
     variables id: new_resource.id || node['ipaddress'].split('.').join(''),
               log_bin: new_resource.log_bin,
@@ -43,7 +43,7 @@ end
 
 action :delete do
   mysql_config 'master' do
-    #instance new_resource.name
+    instance new_resource.name
     action :delete
   end
 
