@@ -20,7 +20,6 @@ mysql_slave 'ops' do
   instance 'ops'
   id 2
   user 'repl'
-  replicate_do_db %w(test1)
 end
 
 #execute "create test1" do
