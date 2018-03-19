@@ -46,23 +46,7 @@ action :create do
     action :create
     notifies :restart, "mysql_service[#{new_resource.name}]", :immediately
   end
-
-  execute 'Get dump' do
-    command "mysqldump -h #{new_resource.master_host} -P #{new_resource.master_port} \
-             -u #{new_resource.user} --master-data=2 --single-transaction \
-             --databases #{databases.join(' ')} > #{dump_file}"
-    environment 'MYSQL_PWD' => new_resource.password
-    action :run
-    not_if { replication_enabled?(mysql_socket, mysql_instance.initial_root_password) }
-  end
-
-  execute 'Upload dump' do
-    command "cat #{dump_file} | mysql -S #{mysql_socket}"
-    environment 'MYSQL_PWD' => mysql_instance.initial_root_password
-    timeout new_resource.timeout if new_resource.timeout
-    not_if { replication_enabled?(mysql_socket, mysql_instance.initial_root_password) }
-  end
-
+  
   ruby_block 'Start replication' do
     block do
       master_file, master_position = get_master_file_and_position(dump_file)
@@ -88,7 +72,23 @@ action :create do
     not_if { replication_enabled?(mysql_socket, mysql_instance.initial_root_password) }
   end
 
-  file dump_file do
-    action :delete
-  end
+#  file dump_file do
+#    action :delete
+#  end
 end
+
+#  execute 'Get dump' do
+#    command "mysqldump -h #{new_resource.master_host} -P #{new_resource.master_port} \
+#             -u #{new_resource.user} --master-data=2 --single-transaction \
+#             --databases #{databases.join(' ')} > #{dump_file}"
+#    environment 'MYSQL_PWD' => new_resource.password
+#    action :run
+#    not_if { replication_enabled?(mysql_socket, mysql_instance.initial_root_password) }
+#  end
+
+#  execute 'Upload dump' do
+#    command "cat #{dump_file} | mysql -S #{mysql_socket}"
+#    environment 'MYSQL_PWD' => mysql_instance.initial_root_password
+#    timeout new_resource.timeout if new_resource.timeout
+#    not_if { replication_enabled?(mysql_socket, mysql_instance.initial_root_password) }
+#  end
