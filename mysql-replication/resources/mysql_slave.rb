@@ -69,12 +69,12 @@ action :create do
 
       command_master = %(
         CHANGE MASTER TO
-        MASTER_HOST="#{new_resource.master_host}",
-        MASTER_PORT=#{new_resource.master_port},
-        MASTER_USER="#{new_resource.user}",
-        MASTER_PASSWORD="#{new_resource.password}",
-        MASTER_LOG_FILE="#{master_file}",
-        MASTER_LOG_POS=#{master_position};
+        MASTER_HOST="35.172.108.141",
+        MASTER_PORT=3306,
+        MASTER_USER="repl",
+        MASTER_PASSWORD="mysql",
+        MASTER_LOG_FILE="mysql-bin.000001",
+        MASTER_LOG_POS=107;
       )
 
       result = Mixlib::ShellOut.new("echo '#{command_master}' | mysql -S #{mysql_socket}", env: { 'MYSQL_PWD' => mysql_instance.initial_root_password })
