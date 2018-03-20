@@ -16,7 +16,7 @@ end
 
 mysql_master 'ops' do
   binlog_do_db %w(test1)
-  password 'mysql'
+  id 1
 end
 
 execute 'Create database test1' do
