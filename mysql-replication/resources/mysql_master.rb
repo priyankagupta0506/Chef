@@ -21,8 +21,7 @@ action :create do
               log_bin: new_resource.log_bin,
               binlog_format: new_resource.binlog_format,
               binlog_do_db: new_resource.binlog_do_db,
-              binlog_ignore_db: new_resource.binlog_ignore_db,
-             # options: new_resource.options
+              binlog_ignore_db: new_resource.binlog_ignore_db
     action :create
     notifies :restart, "mysql_service[ops]", :immediately
   end
