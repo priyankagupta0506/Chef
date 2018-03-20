@@ -5,6 +5,7 @@
 property :instance, kind_of: String, name_attribute: true ,default: 'ops'
 property :id, kind_of: Integer, default: 2
 property :master_host, kind_of: String, required: true,default: '35.172.108.141'
+property :bind_address, kind_of: String,default: '127.0.0.1'
 property :master_port, kind_of: Integer, default: 3306
 property :user, kind_of: String, default: 'repl'
 property :password, kind_of: String, required: true, default: 'mysql'
