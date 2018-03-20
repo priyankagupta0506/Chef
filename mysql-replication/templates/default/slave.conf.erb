@@ -1,14 +1,16 @@
 [mysqld]
 
 server-id = <%= @id %>
-<% if @log_bin %>
-  <% [@log_bin].flatten.each do |log_bin| %>
-log_bin = <%= log_bin %>
-  <% end %>
-<% end %>
+log-bin = <%= @log_bin %>
+bind-address = <%= bind-address %>
 <% if @relay_log %>
   <% [@relay_log].flatten.each do |relay_log| %>
 relay_log = <%= relay_log %>
+  <% end %>
+<% end %>
+<% if @binlog_do_db %>
+  <% [@binlog_do_db].flatten.each do |db| %>
+binlog-do-db = <%= db %>
   <% end %>
 <% end %>
 <% if @database %>
