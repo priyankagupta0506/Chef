@@ -26,10 +26,18 @@ action :create do
     action :create
     notifies :restart, "mysql_service[ops]", :immediately
   end
-if node["platform"] == "ubuntu"
-  execute "Grant permissions" do
-    command "mysql -u root -h 127.0.0.1 -pmysql | echo \" GRANT REPLICATION SLAVE ON *.* TO 'repl'@'%'
-             IDENTIFIED BY PASSWORD 'mysql' \" | echo \" FLUSH PRIVILEGES \" | echo \" CREATE DATABASE test1 \" | echo \" show master status \""
+bash 'Start eplication' do
+  code <<-EOH
+    mysql -u root -h 127.0.0.1 -pmysql -e "CHANGE MASTER TO MASTER_HOST = '35.172.108.141', MASTER_USER = 'repl', MASTER_PASSWORD = 'mysql', MASTER_LOG_FILE = 'mysql-bin.000001', MASTER_LOG_POS = 107;"
+    mysql -u root -h 127.0.0.1 -pmysql -e "start slave;"
+  EOH
+end
+end
+
+#if node["platform"] == "ubuntu"
+#  execute "Grant permissions" do
+#    command "mysql -u root -h 127.0.0.1 -pmysql | echo \" GRANT REPLICATION SLAVE ON *.* TO 'repl'@'%'
+#             IDENTIFIED BY PASSWORD 'mysql' \" | echo \" FLUSH PRIVILEGES \" | echo \" CREATE DATABASE test1 \" | echo \" show master status \""
 #    command 'mysql -u root -h 127.0.0.1 -pmysql -e "show databases"'
 #    command 'mysql -u root -h 127.0.0.1 -pmysql -e "CREATE USER "repl"@'%';"'
 #    exec(mysql -u root -h 127.0.0.1 -pmysql -e "GRANT REPLICATION SLAVE ON *.* TO 'repl'@'127.0.0.1'
@@ -37,9 +45,8 @@ if node["platform"] == "ubuntu"
 
 #    environment 'MYSQL_PWD' => mysql_service[ops].initial_root_password
 #           environment: { 'MYSQL_PWD' => mysql_service[ops].initial_root_password }
-  end
-end
-end
+#  end
+
 
 action :delete do
   mysql_config 'master' do
