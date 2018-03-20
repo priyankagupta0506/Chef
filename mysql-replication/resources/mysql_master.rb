@@ -27,9 +27,9 @@ action :create do
   end
 bash 'Grant permissions' do
   code <<-EOH
-    mysql -u root -h 127.0.0.1 -S /var/run/mysql-ops/mysqld.sock  -e "GRANT REPLICATION SLAVE ON *.* TO 'repl'@'%' IDENTIFIED BY PASSWORD 'mysql';"
-    mysql -u root -h 127.0.0.1 -S /var/run/mysql-ops/mysqld.sock  -e "FLUSH PRIVILEGES;"
-    mysql -u root -pmysql -h 127.0.0.1  -e "CREATE DATABASE test1;"
+    mysql -u root -h 127.0.0.1 -S /var/run/mysql-ops/mysqld.sock --password="" -e "GRANT REPLICATION SLAVE ON *.* TO 'repl'@'%' IDENTIFIED BY PASSWORD 'mysql';"
+    mysql -u root -h 127.0.0.1 -S /var/run/mysql-ops/mysqld.sock --password="" -e "FLUSH PRIVILEGES;"
+    mysql -u root --password="" -h 127.0.0.1  -e "CREATE DATABASE test1;"
   EOH
 end
 end
