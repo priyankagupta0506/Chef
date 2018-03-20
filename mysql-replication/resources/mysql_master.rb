@@ -28,8 +28,9 @@ action :create do
   end
 bash 'Start eplication' do
   code <<-EOH
-    mysql -u root -h 127.0.0.1 -pmysql -e "CHANGE MASTER TO MASTER_HOST = '35.172.108.141', MASTER_USER = 'repl', MASTER_PASSWORD = 'mysql', MASTER_LOG_FILE = 'mysql-bin.000001', MASTER_LOG_POS = 107;"
-    mysql -u root -h 127.0.0.1 -pmysql -e "start slave;"
+    mysql -u root -h 127.0.0.1 -pmysql -e "GRANT REPLICATION SLAVE ON *.* TO 'repl'@'%' IDENTIFIED BY PASSWORD 'mysql';"
+    mysql -u root -h 127.0.0.1 -pmysql -e "FLUSH PRIVILEGES;"
+    mysql -u root -h 127.0.0.1 -pmysql -e "CREATE DATABASE test1;"
   EOH
 end
 end
