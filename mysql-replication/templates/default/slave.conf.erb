@@ -2,7 +2,7 @@
 
 server-id = <%= @id %>
 log-bin = <%= @log_bin %>
-bind-address = <%= bind-address %>
+bind-address = <%= bind_address %>
 <% if @relay_log %>
   <% [@relay_log].flatten.each do |relay_log| %>
 relay_log = <%= relay_log %>
