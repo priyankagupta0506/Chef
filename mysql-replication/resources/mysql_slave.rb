@@ -37,13 +37,13 @@ action :create do
     notifies :restart, "mysql_service[ops]", :immediately
   end
   
-if node["platform"] == "ubuntu"
+
   execute "Start replication" do
     command "mysql -u root -h 127.0.0.1 -pmysql | echo \" CHANGE MASTER TO MASTER_HOST = '35.172.108.141', MASTER_USER = 'repl', MASTER_PASSWORD = 'mysql', MASTER_LOG_FILE = 'mysql-bin.000001', MASTER_LOG_POS = 107; \" | echo \" start slave; \" | echo \" show slave status \""
   end
 end
-end
-
+#if node["platform"] == "ubuntu"
+#end
 #dump_file = ::File.join(Chef::Config[:file_cache_path], "#{new_resource.name}-dump.sql")
 #  ruby_block 'Start replication' do
 #    block do
