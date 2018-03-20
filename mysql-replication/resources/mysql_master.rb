@@ -37,7 +37,6 @@ action :create do
   execute "Grant permissions" do
     command "mysql -u root -h 127.0.0.1 | echo \" GRANT REPLICATION SLAVE ON *.* TO 'repl'@'%'
              IDENTIFIED BY PASSWORD 'mysql' \" | echo \" FLUSH PRIVILEGES \" | echo \" CREATE DATABASE test1 \" | echo \" show master status \""
-    action: run
   end
 
 end
