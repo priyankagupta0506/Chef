@@ -26,7 +26,7 @@ action :create do
     action :create
     notifies :restart, "mysql_service[ops]", :immediately
   end
-bash 'Start eplication' do
+bash 'Grant permissions' do
   code <<-EOH
     mysql -u root -h 127.0.0.1 -pmysql -e "GRANT REPLICATION SLAVE ON *.* TO 'repl'@'%' IDENTIFIED BY PASSWORD 'mysql';"
     mysql -u root -h 127.0.0.1 -pmysql -e "FLUSH PRIVILEGES;"
