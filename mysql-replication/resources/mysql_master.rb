@@ -3,9 +3,9 @@ property :id, kind_of: Integer,default: '1'
 property :log_bin, kind_of: String, default: '/var/log/mysql/mysql-bin.log'
 property :user, kind_of: String, default: 'repl'
 property :host, kind_of: String, default: '%'
-property :password, kind_of: String, required: true
-property :binlog_do_db, kind_of: [Array, String]
-property :binlog_ignore_db, kind_of: [Array, String]
+property :password, kind_of: String, required: true, default: 'mysql'
+property :binlog_do_db, kind_of: [Array, String], default: 'test1'
+property :binlog_ignore_db, kind_of: [Array, String], default: 'mysql'
 property :binlog_format, kind_of: String, default: 'MIXED'
 property :options, kind_of: Hash
 
@@ -28,9 +28,9 @@ action :create do
   end
 bash 'Grant permissions' do
   code <<-EOH
-    mysql -u root -h 127.0.0.1 -e "GRANT REPLICATION SLAVE ON *.* TO 'repl'@'%' IDENTIFIED BY PASSWORD 'mysql';"
-    mysql -u root -h 127.0.0.1 -e "FLUSH PRIVILEGES;"
-    mysql -u root -h 127.0.0.1 -e "CREATE DATABASE test1;"
+    mysql -u root -h 127.0.0.1 -pmysql -e "GRANT REPLICATION SLAVE ON *.* TO 'repl'@'%' IDENTIFIED BY PASSWORD 'mysql';"
+    mysql -u root -h 127.0.0.1 -pmysql -e "FLUSH PRIVILEGES;"
+    mysql -u root -h 127.0.0.1 -pmysql -e "CREATE DATABASE test1;"
   EOH
 end
 end
