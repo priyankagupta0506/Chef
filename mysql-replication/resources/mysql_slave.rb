@@ -9,6 +9,8 @@ property :master_port, kind_of: Integer, default: 3306
 property :user, kind_of: String, default: 'repl'
 property :password, kind_of: String, required: true, default: 'mysql'
 property :database, kind_of: [String, Array]
+property :log_bin, kind_of: String, default: '/var/log/mysql/mysql-bin.log'
+property :relay_log, kind_of: String, default: '/var/log/mysql/mysql-relay-bin'
 property :replicate_ignore_db, kind_of: [String, Array], default: 'mysql'
 property :replicate_do_db, kind_of: [String, Array], default: 'test1'
 property :timeout, kind_of: Integer
@@ -18,10 +20,7 @@ provides :mysql_slave
 default_action :create
 
 action :create do
-  dump_file = ::File.join(Chef::Config[:file_cache_path], "#{new_resource.name}-dump.sql")
-
   databases = new_resource.database ? [new_resource.database].flatten : master_databases
-
   mysql_config 'slave' do
     cookbook 'mysql-replication'
     instance new_resource.name
@@ -30,6 +29,8 @@ action :create do
               database: new_resource.database,
               replicate_ignore_db: new_resource.replicate_ignore_db,
               replicate_do_db: new_resource.replicate_do_db,
+              relay_log: new_resource.relay_log,
+              log_bin: new_resource.log_bin,
               options: new_resource.options
     action :create
     notifies :restart, "mysql_service[ops]", :immediately
@@ -37,10 +38,12 @@ action :create do
   
   if node["platform"] == "ubuntu"
   execute "Start replication" do
-    command "mysql -u root -h 127.0.0.1 -pmysql | echo \" stop slave; \" | echo \" CHANGE MASTER TO MASTER_HOST = '35.172.108.141', MASTER_USER = 'repl', MASTER_PASSWORD = 'mysql', MASTER_LOG_FILE = 'mysql-bin.000001', MASTER_LOG_POS = 107; \" | echo \" start slave; \" | echo \" show slave status \""
+    command "mysql -u root -h 127.0.0.1 -pmysql | echo \" CHANGE MASTER TO MASTER_HOST = '35.172.108.141', MASTER_USER = 'repl', MASTER_PASSWORD = 'mysql', MASTER_LOG_FILE = 'mysql-bin.000001', MASTER_LOG_POS = 107; \" | echo \" start slave; \" | echo \" show slave status \""
   end
 end
 end
+
+#dump_file = ::File.join(Chef::Config[:file_cache_path], "#{new_resource.name}-dump.sql")
 #  ruby_block 'Start replication' do
 #    block do
 #      master_file, master_position = get_master_file_and_position(dump_file)
