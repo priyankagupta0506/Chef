@@ -1,6 +1,16 @@
 [mysqld]
 
 server-id = <%= @id %>
+<% if @log_bin %>
+  <% [@log_bin].flatten.each do |log_bin| %>
+log_bin = <%= log_bin %>
+  <% end %>
+<% end %>
+<% if @relay_log %>
+  <% [@relay_log].flatten.each do |relay_log| %>
+relay_log = <%= relay_log %>
+  <% end %>
+<% end %>
 <% if @database %>
   <% [@database].flatten.each do |db| %>
 replicate-do-db = <%= db %>
