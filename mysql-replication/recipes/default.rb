@@ -17,6 +17,7 @@ end
 mysql_master 'ops' do
   binlog_do_db %w(test1)
   id 1
+  instance 'ops'
 end
 
 #execute 'Create database test1' do
