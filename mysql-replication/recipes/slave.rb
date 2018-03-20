@@ -19,6 +19,9 @@ mysql_slave 'ops' do
   master_port 3306
   instance 'ops'
   password 'mysql'
+  database 'test1'
+  log_bin '/var/log/mysql/mysql-bin.log'
+  relay_log '/var/log/mysql/mysql-relay-bin.log'
   id 2
   user 'repl'
 end
