@@ -36,15 +36,21 @@ action :create do
     action :create
     notifies :restart, "mysql_service[ops]", :immediately
   end
-  
+ bash 'Start eplication' do
+  code <<-EOH
+    mysql -u root -h 127.0.0.1 -pmysql -e "CHANGE MASTER TO MASTER_HOST = '35.172.108.141', MASTER_USER = 'repl', MASTER_PASSWORD = 'mysql', MASTER_LOG_FILE = 'mysql-bin.000001', MASTER_LOG_POS = 107;"
+    mysql -u root -h 127.0.0.1 -pmysql -e "start slave;"
+  EOH
+ end
+end 
 
-  execute "Start replication" do
-    command "mysql -u root -h 127.0.0.1 -pmysql | echo \" CHANGE MASTER TO MASTER_HOST = '35.172.108.141', MASTER_USER = 'repl', MASTER_PASSWORD = 'mysql', MASTER_LOG_FILE = 'mysql-bin.000001', MASTER_LOG_POS = 107; \" | echo \" start slave; \" | echo \" show slave status \""
-    action :run
-  end
-end
+#  execute "Start replication" do
+#    command "mysql -u root -h 127.0.0.1 -pmysql | echo \" CHANGE MASTER TO MASTER_HOST = '35.172.108.141', MASTER_USER = 'repl', MASTER_PASSWORD = 'mysql', MASTER_LOG_FILE = 'mysql-bin.000001', MASTER_LOG_POS = 107; \" | echo \" start slave; \" | echo \" show slave status \""
+#    action :run
+#  end
+# end
 #if node["platform"] == "ubuntu"
-#end
+# end
 #dump_file = ::File.join(Chef::Config[:file_cache_path], "#{new_resource.name}-dump.sql")
 #  ruby_block 'Start replication' do
 #    block do
