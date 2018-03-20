@@ -28,19 +28,19 @@ action :create do
   end
 bash 'Grant permissions' do
   code <<-EOH
-    mysql -u root -h 127.0.0.1 -pmysql -e "GRANT REPLICATION SLAVE ON *.* TO 'repl'@'%' IDENTIFIED BY PASSWORD 'mysql';"
-    mysql -u root -h 127.0.0.1 -pmysql -e "FLUSH PRIVILEGES;"
-    mysql -u root -h 127.0.0.1 -pmysql -e "CREATE DATABASE test1;"
+    mysql -u root -h 127.0.0.1 -e "GRANT REPLICATION SLAVE ON *.* TO 'repl'@'%' IDENTIFIED BY PASSWORD 'mysql';"
+    mysql -u root -h 127.0.0.1 -e "FLUSH PRIVILEGES;"
+    mysql -u root -h 127.0.0.1 -e "CREATE DATABASE test1;"
   EOH
 end
 end
 
 #if node["platform"] == "ubuntu"
 #  execute "Grant permissions" do
-#    command "mysql -u root -h 127.0.0.1 -pmysql | echo \" GRANT REPLICATION SLAVE ON *.* TO 'repl'@'%'
+#    command "mysql -u root -h 127.0.0.1 | echo \" GRANT REPLICATION SLAVE ON *.* TO 'repl'@'%'
 #             IDENTIFIED BY PASSWORD 'mysql' \" | echo \" FLUSH PRIVILEGES \" | echo \" CREATE DATABASE test1 \" | echo \" show master status \""
-#    command 'mysql -u root -h 127.0.0.1 -pmysql -e "show databases"'
-#    command 'mysql -u root -h 127.0.0.1 -pmysql -e "CREATE USER "repl"@'%';"'
+#    command 'mysql -u root -h 127.0.0.1 -e "show databases"'
+#    command 'mysql -u root -h 127.0.0.1 -e "CREATE USER "repl"@'%';"'
 #    exec(mysql -u root -h 127.0.0.1 -pmysql -e "GRANT REPLICATION SLAVE ON *.* TO 'repl'@'127.0.0.1'
 #             IDENTIFIED BY PASSWORD 'mysql'") | mysql -S /var/run/mysql-ops/mysqld.sock)
 
