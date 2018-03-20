@@ -5,7 +5,7 @@ property :user, kind_of: String, default: 'repl'
 property :host, kind_of: String, default: '%'
 property :password, kind_of: String, required: true, default: 'mysql'
 property :binlog_do_db, kind_of: [Array, String], default: 'test1'
-property :binlog_ignore_db, kind_of: [Array, String], default: 'mysql'
+property :binlog_ignore_db, kind_of: [Array, String]
 property :binlog_format, kind_of: String, default: 'MIXED'
 #property :options, kind_of: Hash
 
@@ -25,21 +25,21 @@ action :create do
     action :create
     notifies :restart, "mysql_service[ops]", :immediately
   end
-#bash 'Grant permissions' do
-#  code <<-EOH
-#    mysql -u root -h 127.0.0.1  -e "GRANT REPLICATION SLAVE ON *.* TO 'repl'@'%' IDENTIFIED BY PASSWORD 'mysql';"
-#    mysql -u root -h 127.0.0.1  -e "FLUSH PRIVILEGES;"
-#    mysql -u root -pmysql -h 127.0.0.1  -e "CREATE DATABASE test1;"
-#  EOH
-#end
-#end
-
-  execute "Grant permissions" do
-    command "mysql -u root -h 127.0.0.1 | echo \" GRANT REPLICATION SLAVE ON *.* TO 'repl'@'%'
-             IDENTIFIED BY PASSWORD 'mysql' \" | echo \" FLUSH PRIVILEGES \" | echo \" CREATE DATABASE test1 \" | echo \" show master status \""
-  end
-
+bash 'Grant permissions' do
+  code <<-EOH
+    mysql -u root -h 127.0.0.1 -S /var/run/mysql-ops/mysqld.sock  -e "GRANT REPLICATION SLAVE ON *.* TO 'repl'@'%' IDENTIFIED BY PASSWORD 'mysql';"
+    mysql -u root -h 127.0.0.1 -S /var/run/mysql-ops/mysqld.sock  -e "FLUSH PRIVILEGES;"
+    mysql -u root -pmysql -h 127.0.0.1  -e "CREATE DATABASE test1;"
+  EOH
 end
+end
+
+#  execute "Grant permissions" do
+#    command "mysql -u root -h 127.0.0.1 -S /var/run/mysql-ops/mysqld.sock | echo \" GRANT REPLICATION SLAVE ON *.* TO 'repl'@'%'
+#             IDENTIFIED BY PASSWORD 'mysql' \" | echo \" FLUSH PRIVILEGES \" | echo \" CREATE DATABASE test1 \" | echo \" show master status \""
+#  end
+
+#end
 #    command 'mysql -u root -h 127.0.0.1 -e "show databases"'
 #    command 'mysql -u root -h 127.0.0.1 -e "CREATE USER "repl"@'%';"'
 #    exec(mysql -u root -h 127.0.0.1 -pmysql -e "GRANT REPLICATION SLAVE ON *.* TO 'repl'@'127.0.0.1'
