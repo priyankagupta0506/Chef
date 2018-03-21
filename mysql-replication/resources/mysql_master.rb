@@ -31,7 +31,7 @@ bash 'Grant permissions' do
     mysql -u root -h 127.0.0.1 -S /var/run/mysql-ops/mysqld.sock --password="" -e "FLUSH PRIVILEGES;"
     mysql -u root -h 127.0.0.1 -S /var/run/mysql-ops/mysqld.sock --password="mysql" -e "GRANT REPLICATION SLAVE ON *.* TO 'repl'@'%' IDENTIFIED BY 'mysql';"
     mysql -u root -h 127.0.0.1 -S /var/run/mysql-ops/mysqld.sock --password="mysql" -e "FLUSH PRIVILEGES;"
-    mysql -u root --password="mysql" -h 127.0.0.1  -e "CREATE DATABASE test1;"
+    mysql -u root --password="mysql" -h 127.0.0.1  -e "show master status;"
   EOH
 end
 end
