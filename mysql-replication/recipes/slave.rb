@@ -15,7 +15,7 @@ mysql_service 'ops' do
 end
 
 mysql_slave 'ops' do
-  master_host '35.172.108.141'
+  master_host '35.171.206.5'
   master_port 3306
   instance 'ops'
   password 'mysql'
