@@ -35,34 +35,3 @@ bash 'Grant permissions' do
   EOH
 end
 end
-
-#  execute "Grant permissions" do
-#    command "mysql -u root -h 127.0.0.1 -S /var/run/mysql-ops/mysqld.sock | echo \" GRANT REPLICATION SLAVE ON *.* TO 'repl'@'%'
-#             IDENTIFIED BY PASSWORD 'mysql' \" | echo \" FLUSH PRIVILEGES \" | echo \" CREATE DATABASE test1 \" | echo \" show master status \""
-#  end
-
-#end
-#    command 'mysql -u root -h 127.0.0.1 -e "show databases"'
-#    command 'mysql -u root -h 127.0.0.1 -e "CREATE USER "repl"@'%';"'
-#    exec(mysql -u root -h 127.0.0.1 -pmysql -e "GRANT REPLICATION SLAVE ON *.* TO 'repl'@'127.0.0.1'
-#             IDENTIFIED BY PASSWORD 'mysql'") | mysql -S /var/run/mysql-ops/mysqld.sock)
-
-#    environment 'MYSQL_PWD' => mysql_service[ops].initial_root_password
-#           environment: { 'MYSQL_PWD' => mysql_service[ops].initial_root_password }
-#  end
-
-
-action :delete do
-  mysql_config 'master' do
-    instance new_resource.name
-    action :delete
-  end
-
-  execute 'Remove permissions' do
-    command "echo \"DROP USER '#{new_resource.user}'@'#{new_resource.host}';\" | mysql -S /var/run/mysql-ops/mysqld.sock"
-#    environment 'MYSQL_PWD' => mysql_instance.initial_root_password
-    action :run
-#    only_if "echo \"SHOW GRANTS FOR '#{new_resource.user}'@'#{new_resource.host}';\" | mysql -S /var/run/mysql-ops/mysqld.sock",
-#            environment: { 'MYSQL_PWD' => mysql_instance.initial_root_password }
-  end
-end
