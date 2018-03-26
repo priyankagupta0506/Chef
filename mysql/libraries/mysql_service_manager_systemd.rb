@@ -11,7 +11,6 @@ module MysqlCookbook
       create_system_user
       stop_system_service
       create_config
-      configure_apparmor
       initialize_database
     end
 
