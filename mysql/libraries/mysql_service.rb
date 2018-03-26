@@ -5,7 +5,7 @@ module MysqlCookbook
 
     # installation type and service_manager
     property :install_method, %w(package auto), default: 'auto', desired_state: false
-    property :service_manager, %w(sysvinit upstart systemd auto), default: 'auto', desired_state: false
+    property :service_manager, %w(sysvinit systemd auto), default: 'auto', desired_state: false
 
     # mysql_server_installation
     property :version, String, default: lazy { default_major_version }, desired_state: false
