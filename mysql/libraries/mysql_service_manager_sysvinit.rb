@@ -10,7 +10,6 @@ module MysqlCookbook
       stop_system_service
       create_config
       initialize_database
-      configure_apparmor
     end
 
     action :start do
