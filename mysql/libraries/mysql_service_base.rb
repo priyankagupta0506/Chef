@@ -155,6 +155,7 @@ module MysqlCookbook
           owner 'root'
           group 'root'
           mode '0755'
+          force_unlink true
           recursive true
           action :create
         end
