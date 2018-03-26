@@ -155,9 +155,7 @@ module MysqlCookbook
           owner 'root'
           group 'root'
           mode '0755'
-          force_unlink true
           recursive true
-          action :create
         end
 
         template '/etc/apparmor.d/local/usr.sbin.mysqld' do
@@ -166,7 +164,6 @@ module MysqlCookbook
           owner 'root'
           group 'root'
           mode '0644'
-          action :create
           notifies :restart, "service[#{new_resource.instance} apparmor]", :immediately
         end
 
@@ -176,7 +173,6 @@ module MysqlCookbook
           owner 'root'
           group 'root'
           mode '0644'
-          action :create
           notifies :restart, "service[#{new_resource.instance} apparmor]", :immediately
         end
 
@@ -190,7 +186,6 @@ module MysqlCookbook
             config: new_resource,
             mysql_name: mysql_name
           )
-          action :create
           notifies :restart, "service[#{new_resource.instance} apparmor]", :immediately
         end
 
