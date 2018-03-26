@@ -50,8 +50,6 @@ module MysqlCookbook
           svc = mysql_service_manager(new_resource.name, &block)
         when 'sysvinit'
           svc = mysql_service_manager_sysvinit(new_resource.name, &block)
-        when 'upstart'
-          svc = mysql_service_manager_upstart(new_resource.name, &block)
         when 'systemd'
           svc = mysql_service_manager_systemd(new_resource.name, &block)
         end
