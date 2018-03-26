@@ -81,7 +81,7 @@ module MysqlCookbook
     end
 
     def mysql_name
-      "mysql-#{instance}"
+      "mysql"
     end
 
     def default_socket_file
