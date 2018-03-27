@@ -10,6 +10,7 @@ module MysqlCookbook
       # from base
       create_system_user
       stop_system_service
+      configure_apparmor
       create_config
       initialize_database
     end
@@ -37,32 +38,32 @@ module MysqlCookbook
       end
 
       # this is the main systemd unit file
-      template "/etc/systemd/system/#{mysql_name}.service" do
-        path "/etc/systemd/system/#{mysql_name}.service"
+      template "/etc/systemd/system/mysql.service" do
+        path "/etc/systemd/system/mysql.service"
         source 'systemd/mysqld.service.erb'
         owner 'root'
         group 'root'
         mode '0644'
         variables(
           config: new_resource,
-          etc_dir: etc_dir,
-          base_dir: base_dir,
-          mysqld_bin: mysqld_bin
+          etc_dir: "/etc/mysql",
+          base_dir: "/usr",
+          mysqld_bin: "/usr/sbin/mysqld"
         )
         cookbook 'mysql'
-        notifies :run, "execute[#{new_resource.instance} systemctl daemon-reload]", :immediately
+        notifies :run, "execute[mysql systemctl daemon-reload]", :immediately
         action :create
       end
 
       # avoid 'Unit file changed on disk' warning
-      execute "#{new_resource.instance} systemctl daemon-reload" do
+      execute "mysql systemctl daemon-reload" do
         command '/bin/systemctl daemon-reload'
         action :nothing
       end
 
       # tmpfiles.d config so the service survives reboot
-      template "/usr/lib/tmpfiles.d/#{mysql_name}.conf" do
-        path "/usr/lib/tmpfiles.d/#{mysql_name}.conf"
+      template "/usr/lib/tmpfiles.d/mysql.conf" do
+        path "/usr/lib/tmpfiles.d/mysql.conf"
         source 'tmpfiles.d.conf.erb'
         owner 'root'
         group 'root'
@@ -78,7 +79,7 @@ module MysqlCookbook
 
       # service management resource
       service mysql_name.to_s do
-        service_name mysql_name
+        service_name "mysql"
         provider Chef::Provider::Service::Systemd
         supports restart: true, status: true
         action [:enable, :start]
@@ -88,18 +89,18 @@ module MysqlCookbook
     action :stop do
       # service management resource
       service mysql_name.to_s do
-        service_name mysql_name
+        service_name "mysql"
         provider Chef::Provider::Service::Systemd
         supports status: true
         action [:disable, :stop]
-        only_if { ::File.exist?("/usr/lib/systemd/system/#{mysql_name}.service") }
+        only_if { ::File.exist?("/usr/lib/systemd/system/mysql.service") }
       end
     end
 
     action :restart do
       # service management resource
       service mysql_name.to_s do
-        service_name mysql_name
+        service_name "mysql"
         provider Chef::Provider::Service::Systemd
         supports restart: true
         action :restart
@@ -109,7 +110,7 @@ module MysqlCookbook
     action :reload do
       # service management resource
       service mysql_name.to_s do
-        service_name mysql_name
+        service_name "mysql"
         provider Chef::Provider::Service::Systemd
         action :reload
       end
@@ -129,11 +130,11 @@ module MysqlCookbook
       def delete_stop_service
         # service management resource
         service mysql_name.to_s do
-          service_name mysql_name
+          service_name "mysql"
           provider Chef::Provider::Service::Systemd
           supports status: true
           action [:disable, :stop]
-          only_if { ::File.exist?("/usr/lib/systemd/system/#{mysql_name}.service") }
+          only_if { ::File.exist?("/usr/lib/systemd/system/mysql.service") }
         end
       end
     end
