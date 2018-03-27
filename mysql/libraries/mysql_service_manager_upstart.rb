@@ -12,7 +12,7 @@ module MysqlCookbook
     action :create do
       # from base
       create_system_user
-      stop_system_service
+      #stop_system_service
       create_config
       initialize_database
     end
