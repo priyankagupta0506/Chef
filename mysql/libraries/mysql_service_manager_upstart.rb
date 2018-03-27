@@ -13,6 +13,7 @@ module MysqlCookbook
       # from base
       create_system_user
       #stop_system_service
+      configure_apparmor
       create_config
       initialize_database
     end
