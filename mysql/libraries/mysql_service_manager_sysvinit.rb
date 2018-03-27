@@ -13,18 +13,18 @@ module MysqlCookbook
     end
 
     action :start do
-      template "/etc/init.d/#{mysql_name}" do
+      template "/etc/init.d/mysql" do
         source 'sysvinit/mysqld.erb'
         owner 'root'
         group 'root'
         mode '0755'
         variables(
           config: new_resource,
-          defaults_file: defaults_file,
-          error_log: new_resource.error_log,
-          mysql_name: mysql_name,
-          mysqladmin_bin: mysqladmin_bin,
-          mysqld_safe_bin: mysqld_safe_bin,
+          defaults_file: "/etc/mysql/my.cnf",
+          error_log: "/var/log/mysql/error_log",
+          mysql_name: "mysql",
+          mysqladmin_bin: "/usr/bin/mysqladmin",
+          mysqld_safe_bin: "/usr/bin/mysqld_safe",
           pid_file: new_resource.pid_file,
           scl_name: scl_name
         )
