@@ -5,7 +5,7 @@ module MysqlCookbook
 
     # installation type and service_manager
     property :install_method, %w(package auto), default: 'auto', desired_state: false
-    property :service_manager, %w(sysvinit systemd auto), default: 'auto', desired_state: false
+    property :service_manager, %w(sysvinit upstart systemd auto), default: 'auto', desired_state: false
 
     # mysql_server_installation
     property :version, String, default: lazy { default_major_version }, desired_state: false
@@ -50,6 +50,8 @@ module MysqlCookbook
           svc = mysql_service_manager(new_resource.name, &block)
         when 'sysvinit'
           svc = mysql_service_manager_sysvinit(new_resource.name, &block)
+        when 'upstart'
+          svc = mysql_service_manager_upstart(new_resource.name, &block)
         when 'systemd'
           svc = mysql_service_manager_systemd(new_resource.name, &block)
         end
