@@ -12,10 +12,10 @@ respawn limit 2 5
 env HOME=/etc/<%= @mysql_name %>
 umask 007
 
-kill timeout 300
+kill timeout 60
 
 pre-start script
-[ -d /run/<%= @mysql_name %> ] || install -m 755 -o <%= @run_user %> -g <%= @run_group %> -d /run/<%= @mysql_name %>
+[ -d /run/mysql ] || install -m 755 -o root -g <%= @run_group %> -d /run/mysql
 [ -d <%= @socket_dir %> ] || install -m 755 -o <%= @run_user %> -g <%= @run_group %> -d <%= @socket_dir %>
 end script
 
