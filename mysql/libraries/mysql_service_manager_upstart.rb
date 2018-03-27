@@ -81,14 +81,14 @@ module MysqlCookbook
       end
     end
 
-    action_class do
-      def stop_system_service
-        service system_service_name do
-          provider Chef::Provider::Service::Upstart
-          supports status: true
-          action [:stop, :disable]
-        end
-      end
+    #action_class do
+      #def stop_system_service
+        #service system_service_name do
+          #provider Chef::Provider::Service::Upstart
+          #supports status: true
+          #action [:stop, :disable]
+        #end
+      #end
 
       def delete_stop_service
         service mysql_name do
