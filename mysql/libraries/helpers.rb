@@ -85,7 +85,7 @@ module MysqlCookbook
     end
 
     def default_socket_file
-      "#{run_dir}/mysqld.sock"
+      "/var/run/mysql/mysqld.sock"
     end
 
     def default_client_package_name
@@ -117,7 +117,7 @@ module MysqlCookbook
     def run_dir
       return "#{prefix_dir}/var/run/#{mysql_name}" if node['platform_family'] == 'rhel'
       return "/run/#{mysql_name}" if node['platform_family'] == 'debian'
-      "/var/run/#{mysql_name}"
+      "/var/run/mysql"
     end
 
     def prefix_dir
@@ -142,7 +142,7 @@ module MysqlCookbook
     def etc_dir
       return "/opt/mysql#{pkg_ver_string}/etc/#{mysql_name}" if node['platform_family'] == 'omnios'
       return "#{prefix_dir}/etc/#{mysql_name}" if node['platform_family'] == 'smartos'
-      "#{prefix_dir}/etc/#{mysql_name}"
+      "/etc/mysql"
     end
 
     def base_dir
@@ -175,7 +175,7 @@ module MysqlCookbook
 
     def log_dir
       return "/var/adm/log/#{mysql_name}" if node['platform_family'] == 'omnios'
-      "#{prefix_dir}/var/log/#{mysql_name}"
+      "/var/log/mysql"
     end
 
     def lc_messages_dir; end
@@ -187,10 +187,10 @@ module MysqlCookbook
 
       <<-EOS
         set -e
-        rm -rf /tmp/#{mysql_name}
-        mkdir /tmp/#{mysql_name}
+        rm -rf /tmp/mysql
+        mkdir /tmp/mysql
 
-        cat > /tmp/#{mysql_name}/my.sql <<-'EOSQL'
+        cat > /tmp/mysql/my.sql <<-'EOSQL'
 UPDATE mysql.user SET #{password_column_name}=PASSWORD('#{sql_escaped_password}')#{password_expired} WHERE user = 'root';
 DELETE FROM mysql.user WHERE USER LIKE '';
 DELETE FROM mysql.user WHERE user = 'root' and host NOT IN ('127.0.0.1', 'localhost');
@@ -250,7 +250,7 @@ EOSQL
     def mysqladmin_bin
       return "#{prefix_dir}/bin/mysqladmin" if node['platform_family'] == 'smartos'
       return 'mysqladmin' if scl_package?
-      "#{prefix_dir}/usr/bin/mysqladmin"
+      "/usr/bin/mysqladmin"
     end
 
     def mysqld_bin
@@ -259,7 +259,7 @@ EOSQL
       return '/usr/sbin/mysqld' if node['platform_family'] == 'fedora' && v56plus
       return '/usr/libexec/mysqld' if node['platform_family'] == 'fedora'
       return 'mysqld' if scl_package?
-      "#{prefix_dir}/usr/sbin/mysqld"
+      "/usr/sbin/mysqld"
     end
 
     def mysqld_initialize_cmd
@@ -275,13 +275,13 @@ EOSQL
       return "#{prefix_dir}/bin/mysqld_safe" if node['platform_family'] == 'smartos'
       return "#{base_dir}/bin/mysqld_safe" if node['platform_family'] == 'omnios'
       return 'mysqld_safe' if scl_package?
-      "#{prefix_dir}/usr/bin/mysqld_safe"
+      "/usr/bin/mysqld_safe"
     end
 
     def record_init
       cmd = v56plus ? mysqld_bin : mysqld_safe_bin
-      cmd << " --defaults-file=#{etc_dir}/my.cnf"
-      cmd << " --init-file=/tmp/#{mysql_name}/my.sql"
+      cmd << " --defaults-file=/etc/mysql/my.cnf"
+      cmd << " --init-file=/tmp/mysql/my.sql"
       cmd << ' --explicit_defaults_for_timestamp' if v56plus
       cmd << ' &'
       return "scl enable #{scl_name} \"#{cmd}\"" if scl_package?
