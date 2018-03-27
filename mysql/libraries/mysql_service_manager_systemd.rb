@@ -51,12 +51,12 @@ module MysqlCookbook
           mysqld_bin: "/usr/sbin/mysqld"
         )
         cookbook 'mysql'
-        notifies :run, "execute[mysql systemctl daemon-reload]", :immediately
+        notifies :run, "execute[systemctl daemon-reload]", :immediately
         action :create
       end
 
       # avoid 'Unit file changed on disk' warning
-      execute "mysql systemctl daemon-reload" do
+      execute "systemctl daemon-reload" do
         command '/bin/systemctl daemon-reload'
         action :nothing
       end
