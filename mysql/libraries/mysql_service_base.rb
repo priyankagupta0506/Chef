@@ -4,7 +4,7 @@ module MysqlCookbook
     property :charset, String, default: 'utf8', desired_state: false
     property :data_dir, String, default: lazy { default_data_dir }, desired_state: false
     property :error_log, String, default: lazy { default_error_log }, desired_state: false
-    property :initial_root_password, String, default: 'ilikerandompasswords', desired_state: false
+    property :initial_root_password, String, default: 'mysql', desired_state: false
     property :instance, String, name_property: true, desired_state: false
     property :mysqld_options, Hash, default: {}, desired_state: false
     property :pid_file, String, default: lazy { default_pid_file }, desired_state: false
