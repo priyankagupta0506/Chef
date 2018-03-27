@@ -79,7 +79,7 @@ module MysqlCookbook
 
       # service management resource
       service mysql_name.to_s do
-        service_name "mysql"
+        service_name mysql_name
         provider Chef::Provider::Service::Systemd
         supports restart: true, status: true
         action [:enable, :start]
@@ -89,9 +89,9 @@ module MysqlCookbook
     action :stop do
       # service management resource
       service mysql_name.to_s do
-        service_name "mysql"
+        service_name mysql_name
         provider Chef::Provider::Service::Systemd
-        supports status: true
+        supports status: true, restart: true
         action [:disable, :stop]
         only_if { ::File.exist?("/usr/lib/systemd/system/mysql.service") }
       end
@@ -102,8 +102,8 @@ module MysqlCookbook
       service mysql_name.to_s do
         service_name "mysql"
         provider Chef::Provider::Service::Systemd
-        supports restart: true
-        action :restart
+        supports restart: true, start:true, stop:true
+        action [:stop, :start]
       end
     end
 
