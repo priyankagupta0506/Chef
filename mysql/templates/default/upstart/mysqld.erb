@@ -1,6 +1,6 @@
-# <%= @mysql_name %> Service
+# mysql Service
 
-description     "MySQL service <%= @mysql_name %>"
+description     "MySQL service mysql"
 author          "chef-client"
 
 start on runlevel [2345]
@@ -9,18 +9,17 @@ stop on starting rc RUNLEVEL=[016]
 respawn
 respawn limit 2 5
 
-env HOME=/etc/<%= @mysql_name %>
+env HOME=/etc/mysql
 umask 007
 
 kill timeout 60
 
 pre-start script
 [ -d /run/mysql ] || install -m 755 -o root -g <%= @run_group %> -d /run/mysql
-[ -d <%= @socket_dir %> ] || install -m 755 -o <%= @run_user %> -g <%= @run_group %> -d <%= @socket_dir %>
+[ -d /var/run/mysql ] || install -m 755 -o root -g <%= @run_group %> -d /var/run/mysql
 end script
 
-exec /usr/sbin/mysqld --defaults-file=<%= @defaults_file %>
-
+exec /usr/sbin/mysqld --defaults-file=/etc/mysql/my.cnf
 post-start script
-/usr/sbin/<%= @mysql_name %>-wait-ready
+/usr/sbin/mysql-wait-ready
 end script
