@@ -43,11 +43,11 @@ module MysqlCookbook
         cookbook 'mysql'
         action :create
       end
-      service mysql_name do
-        provider Chef::Provider::Service::Upstart
-        supports status: true
-        action :start
-      end
+      #service mysql_name do
+        #provider Chef::Provider::Service::Upstart
+        #supports status: true, restart: true
+        #action :start
+      #end
     end
     
     action :stop do
