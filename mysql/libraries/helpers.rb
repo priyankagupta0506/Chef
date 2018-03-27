@@ -53,7 +53,7 @@ module MysqlCookbook
     end
 
     def default_pid_file
-      "#{run_dir}/mysqld.pid"
+      "/var/run/mysql/mysqld.pid"
     end
 
     def default_major_version
