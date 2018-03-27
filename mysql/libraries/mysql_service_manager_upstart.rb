@@ -97,6 +97,6 @@ module MysqlCookbook
           only_if { ::File.exist?("#{etc_dir}/init/mysql") }
         end
       end
-    end
+    #end
   end
 end
