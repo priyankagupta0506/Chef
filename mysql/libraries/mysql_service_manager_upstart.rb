@@ -90,13 +90,13 @@ module MysqlCookbook
         #end
       #end
 
-      def delete_stop_service
-        service mysql_name do
-          provider Chef::Provider::Service::Upstart
-          action [:disable, :stop]
-          only_if { ::File.exist?("#{etc_dir}/init/mysql") }
-        end
-      end
+      #def delete_stop_service
+        #service mysql_name do
+          #provider Chef::Provider::Service::Upstart
+          #action [:disable, :stop]
+          #only_if { ::File.exist?("#{etc_dir}/init/mysql") }
+        #end
+      #end
     #end
   end
 end
