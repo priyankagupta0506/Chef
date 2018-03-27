@@ -26,13 +26,13 @@ module MysqlCookbook
 
       # this script is called by the main systemd unit file, and
       # spins around until the service is actually up and running.
-      template "/usr/libexec/#{mysql_name}-wait-ready" do
-        path "/usr/libexec/#{mysql_name}-wait-ready"
+      template "/usr/libexec/mysql-wait-ready" do
+        path "/usr/libexec/mysql-wait-ready"
         source 'systemd/mysqld-wait-ready.erb'
         owner 'root'
         group 'root'
         mode '0755'
-        variables(socket_file: socket_file)
+        variables(socket_file: "/var/run/mysql/mysqld.sock")
         cookbook 'mysql'
         action :create
       end
@@ -69,7 +69,7 @@ module MysqlCookbook
         group 'root'
         mode '0644'
         variables(
-          run_dir: run_dir,
+          run_dir: "/var/run/mysql",
           run_user: new_resource.run_user,
           run_group: new_resource.run_group
         )
