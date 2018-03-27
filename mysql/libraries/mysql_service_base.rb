@@ -39,18 +39,19 @@ module MysqlCookbook
         # Turns out that mysqld is hard coded to try and read
         # /etc/mysql/my.cnf, and its presence causes problems when
         # setting up multiple services.
-        file "#{prefix_dir}/etc/mysql/my.cnf" do
+        
+        file "/etc/mysql/my.cnf" do
           action :delete
         end
 
-        file "#{prefix_dir}/etc/my.cnf" do
+        file "/etc/my.cnf" do
           action :delete
         end
 
         # mysql_install_db is broken on 5.6.13
-        link "#{prefix_dir}/usr/share/my-default.cnf" do
-          to "#{etc_dir}/my.cnf"
-          not_if { ::File.exist? "#{prefix_dir}/usr/share/my-default.cnf" } # FIXME: Chef bug?
+        link "/usr/share/my-default.cnf" do
+          to "/etc/mysql/my.cnf"
+          not_if { ::File.exist? "/usr/share/my-default.cnf" } # FIXME: Chef bug?
           action :create
         end
 
@@ -96,7 +97,7 @@ module MysqlCookbook
         end
 
         # Main configuration file
-        template "#{etc_dir}/my.cnf" do
+        template "/etc/mysql/my.cnf" do
           source 'my.cnf.erb'
           cookbook 'mysql'
           owner new_resource.run_user
