@@ -13,4 +13,4 @@ depends          'java'
 source_url 'https://github.com/criteo-cookbooks/rundeck-server' if defined?(source_url)
 issues_url 'https://github.com/criteo-cookbooks/rundeck-server/issues' if defined?(issues_url)
 
-chef_version '> 12.18.31' if defined?(chef_version)
+#chef_version '> 12.18.31' if defined?(chef_version)
