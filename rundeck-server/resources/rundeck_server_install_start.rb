@@ -6,8 +6,6 @@ action :create do
     bash 'Rundeck install and start' do
       code <<-EOH
         sudo su
-        wget http://security.ubuntu.com/ubuntu/pool/main/a/apt/apt_1.4_amd64.deb
-        sudo dpkg -i apt_1.4_amd64.deb
         echo "start process!!"
         yes Y y | sudo apt-get -f install
         echo "curl install!!"
