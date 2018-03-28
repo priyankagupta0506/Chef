@@ -15,7 +15,7 @@ include_recipe 'rundeck-server::install'
 # Define service
 service 'rundeckd' do
   supports status: true, restart: true
-  action [:install, :start]
+  action [:enable, :start]
 end
 
 
