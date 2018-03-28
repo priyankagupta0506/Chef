@@ -1,4 +1,4 @@
 #chef :: default recipe
-rundeck_server 'rundeck' do
+rundeck_server do
   action [:create, :start]
 end
