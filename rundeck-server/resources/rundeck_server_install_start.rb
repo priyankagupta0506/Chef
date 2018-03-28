@@ -10,7 +10,7 @@ action :create do
         java -version
         wget http://dl.bintray.com/rundeck/rundeck-deb/rundeck_2.10.8-1-GA_all.deb
         dpkg -i rundeck_2.10.8-1-GA_all.deb
-        service rundeckd status 
+        service rundeckd status && service rundeckd start
       EOH
     end
 end
@@ -22,7 +22,7 @@ action :start do
         curl -I http://localhost:4440
       EOH
     end
-    notifies :start, "rundeck_server[rundeckd]", :immediately
+    #notifies :start, "rundeck_server[rundeckd]", :immediately
 end
 action :stop do
     bash 'Rundeck install and start' do
