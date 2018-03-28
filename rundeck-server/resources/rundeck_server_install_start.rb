@@ -3,7 +3,6 @@
 provides :rundeck_server
 
 action :create do
-    cookbook 'rundeck-server'
     action :create
     bash 'Rundeck install and start' do
       code <<-EOH
