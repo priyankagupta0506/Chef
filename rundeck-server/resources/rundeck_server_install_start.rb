@@ -7,7 +7,7 @@ action :create do
       code <<-EOH
         sudo su
         echo "start process!!"
-        sudo apt-get -f install
+        yes Y y | sudo apt-get -f install
         echo "curl install!!"
         yes Y y | sudo apt-get install curl 
         echo "start java install!!"
