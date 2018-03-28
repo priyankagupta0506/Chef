@@ -3,7 +3,6 @@
 provides :rundeck_server
 
 action :create do
-    #action :create
     bash 'Rundeck install and start' do
       code <<-EOH
         sudo su
@@ -16,8 +15,6 @@ action :create do
     end
 end
 action :start do
-    #action :start
-    notifies :restart, "rundeckd", :immediately
     bash 'Rundeck install and start' do
       code <<-EOH
         service rundeckd status 
@@ -25,4 +22,25 @@ action :start do
         curl -I http://localhost:4440
       EOH
     end
+    notifies :start, "rundeckd", :immediately
+end
+action :stop do
+    bash 'Rundeck install and start' do
+      code <<-EOH
+        service rundeckd status 
+        service rundeckd stop && service rundeckd status
+        curl -I http://localhost:4440
+      EOH
+    end
+    notifies :stop, "rundeckd", :immediately
+end
+action :restart do
+    bash 'Rundeck install and start' do
+      code <<-EOH
+        service rundeckd status 
+        service rundeckd restart && service rundeckd status
+        sleep 120 && curl -I http://localhost:4440
+      EOH
+    end
+    notifies :restart, "rundeckd", :immediately
 end
