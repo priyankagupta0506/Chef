@@ -7,8 +7,16 @@ action :create do
       code <<-EOH
         sudo su
         sudo apt-get update
-        yes y | sudo apt-get install oracle-java8-installer
-        sudo apt-get install openjdk-8-jdk
+        echo "start java install!!"
+        sudo apt-get install python-software-properties
+        sudo add-apt-repository ppa:webupd8team/java
+        echo "update!!"
+        sudo apt-get update
+        sudo apt-get install oracle-java8-installer
+        echo -ne '\n' | sudo update-alternatives --config java
+        sudo echo "JAVA_HOME="/usr/lib/jvm/java-8-oracle"" >> /etc/environment
+        source /etc/environment
+        echo $JAVA_HOME
         echo "check java !"
         java -version
         echo "download rundeck !!"
