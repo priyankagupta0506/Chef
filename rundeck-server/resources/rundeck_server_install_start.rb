@@ -16,7 +16,6 @@ action :create do
     end
 end
 action :start do
-    cookbook 'rundeck-server'
     action :start
     notifies :restart, "rundeckd", :immediately
     bash 'Rundeck install and start' do
