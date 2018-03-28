@@ -6,7 +6,7 @@ action :create do
     bash 'Rundeck install and start' do
       code <<-EOH
         sudo su
-        sudo apt-get update
+        apt-get -f install
         echo "start java install!!"
         sudo apt-get install python-software-properties
         sudo add-apt-repository ppa:webupd8team/java
