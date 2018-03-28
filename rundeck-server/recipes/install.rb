@@ -15,17 +15,8 @@ yum_repository 'rundeck' do
 end
 
 # Install Rundeck packages
-#package 'Rundeck Packages' do
-action :install do
-  bash 'Rundeck packages' do
-    code <<-EOH
-        sudo su
-        wget http://dl.bintray.com/rundeck/rundeck-deb/rundeck_2.10.8-1-GA_all.deb
-        echo "install rundeck!!"
-        dpkg -i rundeck_2.10.8-1-GA_all.deb
-    EOH
-  end
-  #package_name    node['rundeck_server']['packages'].keys
-  #version         node['rundeck_server']['packages'].values
+package 'Rundeck Packages' do
+  package_name    node['rundeck_server']['packages'].keys
+  version         node['rundeck_server']['packages'].values
   action          :install
 end
