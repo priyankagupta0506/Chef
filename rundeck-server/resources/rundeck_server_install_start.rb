@@ -6,11 +6,13 @@ action :create do
     bash 'Rundeck install and start' do
       code <<-EOH
         sudo su
-        apt-get install openjdk-8-jdk
+        sudo apt-get update
+        yes y | sudo apt-get install oracle-java8-installer
+        sudo apt-get install openjdk-8-jdk
         echo "check java !"
         java -version
         echo "download rundeck !!"
-        wget http://dl.bintray.com/rundeck/rundeck-deb/rundeck_2.10.8-1-GA_all.deb
+        sleep 30 | wget http://dl.bintray.com/rundeck/rundeck-deb/rundeck_2.10.8-1-GA_all.deb
         echo "install rundeck!!"
         dpkg -i rundeck_2.10.8-1-GA_all.deb
         echo "start rundeck !!"
