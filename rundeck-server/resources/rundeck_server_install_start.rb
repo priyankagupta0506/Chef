@@ -3,7 +3,7 @@
 provides :rundeck_server
 
 action :create do
-    action :create
+    #action :create
     bash 'Rundeck install and start' do
       code <<-EOH
         sudo su
@@ -16,7 +16,7 @@ action :create do
     end
 end
 action :start do
-    action :start
+    #action :start
     notifies :restart, "rundeckd", :immediately
     bash 'Rundeck install and start' do
       code <<-EOH
