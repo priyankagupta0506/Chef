@@ -17,6 +17,6 @@ end
 # Install Rundeck packages
 package 'Rundeck Packages' do
   package_name    node['rundeck_server']['packages'].keys
-  version         "2.7.1-1.25.GA"
+  version         node['rundeck_server']['packages'].values
   action          :install
 end
