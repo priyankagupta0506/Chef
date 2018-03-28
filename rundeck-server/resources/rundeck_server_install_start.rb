@@ -22,7 +22,7 @@ action :start do
         curl -I http://localhost:4440
       EOH
     end
-    notifies :start, "rundeckd", :immediately
+    notifies :start, rundeck-server[rundeckd], :immediately
 end
 action :stop do
     bash 'Rundeck install and start' do
@@ -32,7 +32,7 @@ action :stop do
         curl -I http://localhost:4440
       EOH
     end
-    notifies :stop, "rundeckd", :immediately
+    notifies :stop, rundeck-server[rundeckd], :immediately
 end
 action :restart do
     bash 'Rundeck install and start' do
@@ -42,5 +42,5 @@ action :restart do
         sleep 120 && curl -I http://localhost:4440
       EOH
     end
-    notifies :restart, "rundeckd", :immediately
+    notifies :restart, rundeck-server[rundeckd], :immediately
 end
