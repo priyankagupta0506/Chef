@@ -15,7 +15,8 @@ yum_repository 'rundeck' do
 end
 
 # Install Rundeck packages
-package 'Rundeck Packages' do
+#package 'Rundeck Packages' do
+action :install do
   bash 'Rundeck packages' do
     code <<-EOH
         sudo su
