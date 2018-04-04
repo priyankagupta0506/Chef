@@ -17,7 +17,7 @@ action :create do
         java -version
         javac -version
         wget http://dl.bintray.com/rundeck/rundeck-deb/rundeck_2.10.8-1-GA_all.deb
-        dpkg -i rundeck_2.10.8-1-GA_all.deb
+        sudo dpkg -i rundeck_2.10.8-1-GA_all.deb
         mkdir -p /home/ubuntu/test_007
         sudo service rundeckd status
         sudo service rundeckd start
