@@ -8,12 +8,12 @@ action :create do
     bash 'Rundeck install and start' do
       code <<-EOH
         sudo su
-        sudo apt update
+        sudo apt-get update
         mkdir -p /home/ubuntu/test_000
-        sudo apt install openjdk-8-jre -y
+        sudo apt-get install openjdk-8-jre -y
         mkdir -p /home/ubuntu/test_001
-        sudo apt install openjdk-8-jdk -y
-        sudo apt update -y
+        sudo apt-get install openjdk-8-jdk -y
+        sudo apt-get update -y
         mkdir -p /home/ubuntu/test_002
         echo -ne '\n' | sudo update-alternatives --config java
         mkdir -p /home/ubuntu/test_005
