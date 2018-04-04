@@ -17,7 +17,7 @@ action :create do
         mkdir -p /home/ubuntu/test_002
         echo -ne '\n' | sudo update-alternatives --config java
         mkdir -p /home/ubuntu/test_005
-        sudo echo "JAVA_HOME="/usr/lib/jvm/java-8-openjdk-amd64/jdk"" >> /etc/environment
+        sudo echo "JAVA_HOME="/usr/lib/jvm/java-8-openjdk-amd64"" >> /etc/environment
         source /etc/environment
         mkdir -p /home/ubuntu/test_006
         java -version
