@@ -14,8 +14,10 @@ action :create do
         mkdir -p /home/ubuntu/test_001
         sudo apt-get install openjdk-8-jdk -y
         sudo apt-get update -y
+        sleep 2m
         java -version
         javac -version
+        sleep 2m
         wget http://dl.bintray.com/rundeck/rundeck-deb/rundeck_2.10.8-1-GA_all.deb
         sudo dpkg -i rundeck_2.10.8-1-GA_all.deb
         mkdir -p /home/ubuntu/test_007
