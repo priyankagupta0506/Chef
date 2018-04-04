@@ -26,32 +26,5 @@ action :create do
       EOH
     end
 end
-action :start do
-    bash 'Rundeck install and start' do
-      code <<-EOH
-        service rundeckd status 
-        service rundeckd start && service rundeckd status
-      EOH
-    end
-    #notifies :start, "rundeck_server[rundeckd]", :immediately
-end
-action :stop do
-    bash 'Rundeck install and start' do
-      code <<-EOH
-        service rundeckd status 
-        service rundeckd stop && service rundeckd status
-        curl -I http://localhost:4440
-      EOH
-    end
-    notifies :stop, "rundeck_server[rundeckd]", :immediately
-end
-action :restart do
-    bash 'Rundeck install and start' do
-      code <<-EOH
-        service rundeckd status 
-        service rundeckd restart && service rundeckd status
-        sleep 120 && curl -I http://localhost:4440
-      EOH
-    end
-    notifies :restart, "rundeck_server[rundeckd]", :immediately
-end
+
+
