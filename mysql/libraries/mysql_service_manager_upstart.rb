@@ -19,15 +19,15 @@ module MysqlCookbook
     end
 
     action :start do
-      template "/usr/sbin/mysql-wait-ready" do
-        source 'upstart/mysqld-wait-ready.erb'
-        owner 'root'
-        group 'root'
-        mode '0755'
-        variables(socket_file: '/var/run/mysql-ops/mysqld.sock')
-        cookbook 'mysql'
-        action :create
-      end
+      #template "/usr/sbin/mysql-wait-ready" do
+      #  source 'upstart/mysqld-wait-ready.erb'
+      #  owner 'root'
+      #  group 'root'
+      #  mode '0755'
+      #  variables(socket_file: '/var/run/mysql-ops/mysqld.sock')
+      #  cookbook 'mysql'
+      #  action :create
+      #end
 
       template "/etc/init/mysql.conf" do
         source 'upstart/mysqld.erb'
