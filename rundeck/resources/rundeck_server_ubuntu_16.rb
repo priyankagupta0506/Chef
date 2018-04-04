@@ -8,14 +8,11 @@ action :create do
       code <<-EOH
         sudo su
         mkdir -p /home/ubuntu/test_000
-        echo -ne '\n' | sudo add-apt-repository ppa:webupd8team/java
+        sudo apt install openjdk-8-jre -y
         mkdir -p /home/ubuntu/test_001
+        sudo apt install openjdk-8-jdk -y
         sudo apt-get update -y
         mkdir -p /home/ubuntu/test_002
-        yes y | sudo apt-get install oracle-java8-installer -y
-        mkdir -p /home/ubuntu/test_003
-        yes y | sudo apt-get install oracle-java8-set-default -y
-        mkdir -p /home/ubuntu/test_004
         echo -ne '\n' | sudo update-alternatives --config java
         mkdir -p /home/ubuntu/test_005
         sudo echo "JAVA_HOME="/usr/lib/jvm/java-8-oracle"" >> /etc/environment
