@@ -7,25 +7,19 @@ action :create do
     bash 'Rundeck install and start' do
       code <<-EOH
         sudo su
-        echo "curl install!!"
-        sudo apt-get install curl -y
-        echo "start java install!!"
+        sudo apt-get update -y
         sudo apt-get install python-software-properties -y
         yes Y y | sudo add-apt-repository ppa:webupd8team/java 
-        echo "update!!"
         sudo apt-get update -y
         sudo apt-get install oracle-java8-installer -y
         echo -ne '\n' | sudo update-alternatives --config java
         sudo echo "JAVA_HOME="/usr/lib/jvm/java-8-oracle"" >> /etc/environment
         source /etc/environment
-        echo $JAVA_HOME
-        echo "check java !"
+        sudo apt-get update -y
         java -version
-        echo "download rundeck !!"
-        sleep 30 | wget http://dl.bintray.com/rundeck/rundeck-deb/rundeck_2.10.8-1-GA_all.deb
-        echo "install rundeck!!"
+        sleep 30
+        wget http://dl.bintray.com/rundeck/rundeck-deb/rundeck_2.10.8-1-GA_all.deb
         dpkg -i rundeck_2.10.8-1-GA_all.deb
-        echo "start rundeck !!"
         sudo service rundeckd status
         sudo service rundeckd start
         sudo netstat -antlp | grep 4440
