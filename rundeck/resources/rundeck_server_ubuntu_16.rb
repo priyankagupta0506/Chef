@@ -21,13 +21,8 @@ action :create do
         sudo echo "JAVA_HOME="/usr/lib/jvm/java-8-oracle"" >> /etc/environment
         source /etc/environment
         mkdir -p /home/ubuntu/test_006
-        wget http://dl.bintray.com/rundeck/rundeck-deb/rundeck_2.10.8-1-GA_all.deb
-        dpkg -i rundeck_2.10.8-1-GA_all.deb
-        mkdir -p /home/ubuntu/test_007
-        sudo service rundeckd status
-        sudo service rundeckd start
-        mkdir -p /home/ubuntu/test_008
-        sudo netstat -antlp | grep 4440
+        java -version
+        javac -version
       EOH
     end
 end
