@@ -7,6 +7,8 @@ action :create do
     bash 'Rundeck install and start' do
       code <<-EOH
         sudo su
+        mkdir -p /home/ubuntu/test_000
+        touch /home/ubuntu/test.sh
         echo -ne '\n' | sudo add-apt-repository ppa:webupd8team/java -y
         sudo apt-get update -y
         yes y | sudo apt-get install oracle-java8-installer -y
