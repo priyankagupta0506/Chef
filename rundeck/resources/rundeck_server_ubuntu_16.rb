@@ -14,12 +14,6 @@ action :create do
         mkdir -p /home/ubuntu/test_001
         sudo apt-get install openjdk-8-jdk -y
         sudo apt-get update -y
-        mkdir -p /home/ubuntu/test_002
-        echo -ne '\n' | sudo update-alternatives --config java
-        mkdir -p /home/ubuntu/test_005
-        sudo echo "JAVA_HOME="/usr/lib/jvm/java-8-openjdk-amd64"" >> /etc/environment
-        source /etc/environment
-        mkdir -p /home/ubuntu/test_006
         java -version
         javac -version
         wget http://dl.bintray.com/rundeck/rundeck-deb/rundeck_2.10.8-1-GA_all.deb
