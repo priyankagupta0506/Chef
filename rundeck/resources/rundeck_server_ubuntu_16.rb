@@ -8,13 +8,13 @@ action :create do
       code <<-EOH
         sudo su
         echo "curl install!!"
-        yes Y y | sudo apt-get install curl
+        sudo apt-get install curl -y
         echo "start java install!!"
-        yes Y y | sudo apt-get install python-software-properties
-        yes Y y | sudo add-apt-repository ppa:webupd8team/java
+        sudo apt-get install python-software-properties -y
+        yes Y y | sudo add-apt-repository ppa:webupd8team/java 
         echo "update!!"
-        yes Y y | sudo apt-get update
-        yes Y y | sudo apt-get install oracle-java8-installer
+        sudo apt-get update -y
+        sudo apt-get install oracle-java8-installer -y
         echo -ne '\n' | sudo update-alternatives --config java
         sudo echo "JAVA_HOME="/usr/lib/jvm/java-8-oracle"" >> /etc/environment
         source /etc/environment
