@@ -8,6 +8,7 @@ action :create do
       code <<-EOH
         sudo su
         sudo apt-get update -y
+        sudo apt-get -f install
         sudo apt-get install python-software-properties -y
         yes Y y | sudo add-apt-repository ppa:webupd8team/java 
         sudo apt-get update -y
