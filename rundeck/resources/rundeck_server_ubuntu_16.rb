@@ -9,10 +9,10 @@ action :create do
         sudo su
         sudo apt-get update -y
         sudo apt autoremove
-        sudo apt-get -f install
-        yes Y y | sudo add-apt-repository ppa:webupd8team/java 
+        yes Y y | sudo add-apt-repository ppa:webupd8team/java
+        sudo apt-get update -y | sudo dpkg --configure -a
         sudo apt-get update -y
-        sudo apt-get install oracle-java8-installer -y
+        sudo apt-get install openjdk-8-jdk -y
         echo -ne '\n' | sudo update-alternatives --config java
         sudo echo "JAVA_HOME="/usr/lib/jvm/java-8-oracle"" >> /etc/environment
         source /etc/environment
