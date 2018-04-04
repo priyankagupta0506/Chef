@@ -29,11 +29,11 @@ module MysqlCookbook
         action :create
       end
 
-      template "/etc/init.d/mysql.conf" do
+      template "/etc/init/mysql.conf" do
         source 'upstart/mysqld.erb'
         owner 'root'
         group 'root'
-        mode '0644'
+        mode '0755'
         variables(
           defaults_file: '/etc/mysql/my.cnf',
           mysql_name: 'mysql',
@@ -47,7 +47,7 @@ module MysqlCookbook
       service mysql_name do
         provider Chef::Provider::Service::Upstart
         supports status: true
-        action :create
+        action :start
       end
     end
    
