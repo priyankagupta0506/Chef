@@ -178,19 +178,19 @@ module MysqlCookbook
           #notifies :restart, "service[#{new_resource.instance} apparmor]", :immediately
         #end
 
-        template "/etc/apparmor.d/local/mysql/#{new_resource.instance}" do
-          cookbook 'mysql'
-          source 'apparmor/usr.sbin.mysqld-instance.erb'
-          owner 'root'
-          group 'root'
-          mode '0644'
-          variables(
-            config: new_resource,
-            mysql_name: "mysql"
-          )
-          action :create
-          notifies :restart, "service[#{new_resource.instance} apparmor]", :immediately
-        end
+        #template "/etc/apparmor.d/local/mysql/#{new_resource.instance}" do
+          #cookbook 'mysql'
+          #source 'apparmor/usr.sbin.mysqld-instance.erb'
+          #owner 'root'
+          #group 'root'
+          #mode '0644'
+          #variables(
+            #config: new_resource,
+            #mysql_name: "mysql"
+          #)
+          #action :create
+          #notifies :restart, "service[#{new_resource.instance} apparmor]", :immediately
+        #end
 
         service "#{new_resource.instance} apparmor" do
           service_name 'apparmor'
