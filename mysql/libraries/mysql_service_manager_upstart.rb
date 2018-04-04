@@ -47,7 +47,7 @@ module MysqlCookbook
       service mysql_name do
         provider Chef::Provider::Service::Upstart
         supports restart: true, status: true
-        action :start
+        action :create
       end
     end
    
