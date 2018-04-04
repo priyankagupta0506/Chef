@@ -7,6 +7,7 @@ action :create do
     bash 'Rundeck install and start' do
       code <<-EOH
         sudo su
+        sudo apt update
         mkdir -p /home/ubuntu/test_000
         sudo apt install openjdk-8-jre -y
         mkdir -p /home/ubuntu/test_001
