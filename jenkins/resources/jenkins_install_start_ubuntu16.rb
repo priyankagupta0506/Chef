@@ -13,6 +13,7 @@ action :create do
         sudo dpkg --configure -a
         sudo apt-get update -y
         yes y | sudo apt-get install oracle-java8-installer -y
+        sudo apt-get install oracle-java8-set-default -y
         echo -ne '\n' | sudo update-alternatives --config java
         sudo echo "JAVA_HOME="/usr/lib/jvm/java-8-oracle"" >> /etc/environment
         java -version
