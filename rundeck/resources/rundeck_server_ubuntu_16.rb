@@ -1,7 +1,7 @@
 #
 #chef :: default recipe
 #
-provides :rundeck_server_16
+provides :rundeck_server_java
 
 action :create do
     bash 'Rundeck install and start' do
