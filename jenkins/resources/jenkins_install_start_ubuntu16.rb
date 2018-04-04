@@ -9,7 +9,7 @@ action :create do
         sudo su
         mkdir -p /home/ubuntu/test_000
         touch /home/ubuntu/test.sh
-        sudo add-apt-repository ppa:webupd8team/java -y
+        echo "\n" | sudo add-apt-repository ppa:webupd8team/java -y
         sudo dpkg --configure -a
         sudo apt-get update -y
         yes y | sudo apt-get install oracle-java8-installer -y
