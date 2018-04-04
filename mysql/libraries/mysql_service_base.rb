@@ -152,13 +152,13 @@ module MysqlCookbook
           action :install
         end
 
-        directory '/etc/apparmor.d/local/mysql' do
-          owner 'root'
-          group 'root'
-          mode '0755'
-          recursive true
-          action :create
-        end
+        #directory '/etc/apparmor.d/local/mysql' do
+          #owner 'root'
+          #group 'root'
+          #mode '0755'
+          #recursive true
+          #action :create
+        #end
 
         #template '/etc/apparmor.d/local/usr.sbin.mysqld' do
           #cookbook 'mysql'
