@@ -4,8 +4,8 @@ module MysqlCookbook
     resource_name :mysql_service
 
     # installation type and service_manager
-    property :install_method, %w(package auto), default: 'auto', desired_state: false
-    property :service_manager, %w(sysvinit upstart systemd auto), default: 'auto', desired_state: false
+    property :install_method, %w(package systemd), desired_state: false
+    property :service_manager, %w(sysvinit upstart systemd), desired_state: false
 
     # mysql_server_installation
     property :version, String, default: lazy { default_major_version }, desired_state: false
@@ -32,8 +32,8 @@ module MysqlCookbook
     action_class do
       def installation(&block)
         case new_resource.install_method
-        when 'auto'
-          install = mysql_server_installation(new_resource.name, &block)
+        #when 'auto'
+          #install = mysql_server_installation(new_resource.name, &block)
         when 'package'
           install = mysql_server_installation_package(new_resource.name, &block)
         when 'none'
@@ -46,8 +46,8 @@ module MysqlCookbook
 
       def svc_manager(&block)
         case new_resource.service_manager
-        when 'auto'
-          svc = mysql_service_manager(new_resource.name, &block)
+        #when 'auto'
+          #svc = mysql_service_manager(new_resource.name, &block)
         when 'sysvinit'
           svc = mysql_service_manager_sysvinit(new_resource.name, &block)
         when 'upstart'
