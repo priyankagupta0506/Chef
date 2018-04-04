@@ -8,6 +8,7 @@ action :create do
       code <<-EOH
         sudo su
         sudo apt-get update -y
+        sudo apt autoremove
         sudo apt-get -f install
         yes Y y | sudo add-apt-repository ppa:webupd8team/java 
         sudo apt-get update -y
