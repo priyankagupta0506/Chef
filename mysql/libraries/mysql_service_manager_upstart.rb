@@ -13,7 +13,7 @@ module MysqlCookbook
       # from base
       create_system_user
       #stop_system_service
-      configure_apparmor
+      #configure_apparmor
       create_config
       initialize_database
     end
@@ -29,7 +29,7 @@ module MysqlCookbook
         action :create
       end
 
-      template "/etc/init/mysql.conf" do
+      template "/etc/init.d/mysql.conf" do
         source 'upstart/mysqld.erb'
         owner 'root'
         group 'root'
@@ -50,14 +50,7 @@ module MysqlCookbook
         action :create
       end
     end
-    
-    action :start do
-      service mysql_name do
-        provider Chef::Provider::Service::Upstart
-        supports restart: true, status: true
-        action :start
-      end
-    end
+   
     action :stop do
       service mysql_name do
         provider Chef::Provider::Service::Upstart
