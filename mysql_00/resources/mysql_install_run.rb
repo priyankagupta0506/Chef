@@ -14,11 +14,7 @@ action :create do
         touch test_1.sh
         mysql --version
         touch test_2.sh
-        sudo mysql_install_db
-        touch test_3.sh
         sudo service mysql status
-        sudo service mysql start
-        sudo netstat -antlp | grep 3306
       EOH
     end
 end
