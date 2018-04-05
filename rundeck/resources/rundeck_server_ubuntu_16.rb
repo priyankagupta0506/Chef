@@ -8,23 +8,18 @@ action :create do
     bash 'Rundeck install and start' do
       code <<-EOH
         sudo su
-        sudo apt-get update
-        sudo mkdir -p /home/ubuntu/test_000
+        sudo apt-get update -y
         sudo apt-get install openjdk-8-jre -y
-        sudo mkdir -p /home/ubuntu/test_001
+        sudo apt-get update -y
         sudo apt-get install openjdk-8-jdk -y
         sudo apt-get update -y
-        sleep 2m
         java -version
         javac -version
-        sleep 2m
+        sleep 30
         sudo su | wget http://dl.bintray.com/rundeck/rundeck-deb/rundeck_2.10.8-1-GA_all.deb
-        sleep 10
         sudo dpkg -i rundeck_2.10.8-1-GA_all.deb
-        sudo mkdir -p /home/ubuntu/test_007
         sudo service rundeckd status
         sudo service rundeckd start
-        mkdir -p /home/ubuntu/test_008
         sudo netstat -antlp | grep 4440
       EOH
     end
