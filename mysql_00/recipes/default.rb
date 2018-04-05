@@ -1,4 +1,4 @@
 #
 mysql_service_direct 'mysql' do
-  action [:create, :start]
+  action :create
 end
