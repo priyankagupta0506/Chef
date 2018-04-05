@@ -11,6 +11,7 @@ action :create do
         echo "mysql-server mysql-server/root_password password mysql" | debconf-set-selections
         echo "mysql-server mysql-server/root_password_again password mysql" | debconf-set-selections
         sudo apt-get install mysql-server-5.5 -y
+        sudo apt-get install mysql-client -y
         mysql --version
         touch test_2.sh
         sudo service mysql status
