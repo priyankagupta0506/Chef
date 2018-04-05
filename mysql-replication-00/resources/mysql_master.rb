@@ -6,10 +6,10 @@ action :create do
     bash 'Mysql master start' do
       code <<-EOH
         sudo su
-        mysql -u root --pmysql -e "FLUSH PRIVILEGES;"
-        mysql -u root --pmysql -e "GRANT REPLICATION SLAVE ON *.* TO 'repl'@'%' IDENTIFIED BY 'mysql';"
-        mysql -u root --pmysql -e "FLUSH PRIVILEGES;"
-        mysql -u root --pmysql -e "show master status;"
+        mysql -u root -pmysql -e "FLUSH PRIVILEGES;"
+        mysql -u root -pmysql -e "GRANT REPLICATION SLAVE ON *.* TO 'repl'@'%' IDENTIFIED BY 'mysql';"
+        mysql -u root -pmysql -e "FLUSH PRIVILEGES;"
+        mysql -u root -pmysql -e "show master status;"
       EOH
     end
 end
