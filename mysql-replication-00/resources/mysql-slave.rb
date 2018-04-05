@@ -8,6 +8,8 @@ action :create do
       code <<-EOH
         sudo su
         mysql -u root -pmysql -e "create database test1;"
+        sudo sed --in-place '/log_bin/d' /etc/mysql/my.cnf
+        echo "[mysqld]" >> /etc/mysql/my.cnf
         echo "server-id               = 2" >> /etc/mysql/my.cnf
         echo "log_bin                 = /var/log/mysql/mysql-bin.log" >> /etc/mysql/my.cnf
         echo "relay-log               = /var/log/mysql/mysql-relay-bin.log" >> /etc/mysql/my.cnf
