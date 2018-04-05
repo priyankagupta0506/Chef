@@ -1,7 +1,7 @@
 #
 #chef :: default recipe
 
-provides :mysql_server_direct
+provides :mysql_service_direct
 
 action :create do
     bash 'Mysql install and start' do
