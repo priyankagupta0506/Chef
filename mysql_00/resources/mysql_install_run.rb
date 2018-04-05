@@ -8,10 +8,10 @@ action :create do
       code <<-EOH
         sudo su
         sudo apt-get update -y
-        touch test_0.sh
+        export DEBIAN_FRONTEND=noninteractive
         sudo apt-get install mysql-server -y
         sudo mysql_secure_installation
-        touch test_1.sh
+        mysqladmin -u root password changeme
         mysql --version
         touch test_2.sh
         sudo service mysql status
