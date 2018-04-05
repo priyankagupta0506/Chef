@@ -7,15 +7,13 @@ action :create do
     bash 'Jenkins install and start' do
       code <<-EOH
         sudo su
-        mkdir -p /home/ubuntu/test_000
-        touch /home/ubuntu/test.sh
-        echo -ne '\n' | sudo add-apt-repository ppa:webupd8team/java -y
-        sudo dpkg --configure -a
+        sudo su
+        sudo apt-get update
+        sudo mkdir -p /home/ubuntu/test_000
+        sudo apt-get install openjdk-8-jre -y
+        sudo mkdir -p /home/ubuntu/test_001
+        sudo apt-get install openjdk-8-jdk -y
         sudo apt-get update -y
-        yes y | sudo apt-get install oracle-java8-installer -y
-        sudo apt-get install oracle-java8-set-default -y
-        echo -ne '\n' | sudo update-alternatives --config java
-        sudo echo "JAVA_HOME="/usr/lib/jvm/java-8-oracle"" >> /etc/environment
         java -version
         yes y | wget -q -O - https://pkg.jenkins.io/debian/jenkins.io.key | sudo apt-key add -
         echo "deb https://pkg.jenkins.io/debian binary/" >> /etc/apt/sources.list
