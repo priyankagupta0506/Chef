@@ -8,9 +8,8 @@ action :create do
       code <<-EOH
         sudo su
         sudo apt-get update -y
-        export DEBIAN_FRONTEND=noninteractive
-        sudo debconf-set-selections <<< 'mysql-server mysql-server/root_password password mysql'
-        sudo debconf-set-selections <<< 'mysql-server mysql-server/root_password_again password mysql'
+        echo "mysql-server mysql-server/root_password password mysql" | debconf-set-selections
+        echo "mysql-server mysql-server/root_password_again password mysql" | debconf-set-selections
         sudo apt-get install mysql-server -y
         sudo mysql_secure_installation
         mysqladmin -u root password changeme
