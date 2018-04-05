@@ -15,10 +15,8 @@ action :create do
         sudo apt-get update -y
         java -version
         javac -version
-        sleep 30
-        sudo su | wget http://dl.bintray.com/rundeck/rundeck-deb/rundeck_2.10.8-1-GA_all.deb
+        wget http://dl.bintray.com/rundeck/rundeck-deb/rundeck_2.10.8-1-GA_all.deb
         sudo dpkg -i rundeck_2.10.8-1-GA_all.deb
-        sudo service rundeckd status
         sudo service rundeckd start
         sudo netstat -antlp | grep 4440
       EOH
