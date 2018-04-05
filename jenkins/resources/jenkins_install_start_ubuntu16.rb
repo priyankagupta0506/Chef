@@ -7,11 +7,9 @@ action :create do
     bash 'Jenkins install and start' do
       code <<-EOH
         sudo su
-        sudo su
-        sudo apt-get update
-        sudo mkdir -p /home/ubuntu/test_000
+        sudo apt-get update -y
         sudo apt-get install openjdk-8-jre -y
-        sudo mkdir -p /home/ubuntu/test_001
+        sudo apt-get update -y
         sudo apt-get install openjdk-8-jdk -y
         sudo apt-get update -y
         java -version
