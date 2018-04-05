@@ -6,7 +6,10 @@ action :create do
     bash 'Mysql master start' do
       code <<-EOH
         sudo su
-        mysql -u root -pmysql -e "FLUSH PRIVILEGES;"
+        echo "server-id = 1" >> /etc/mysql/my.cnf
+        echo "log_bin = /var/log/mysql/mysql-bin.log" >> /etc/mysql/my.cnf
+        sudo service mysql restart
+        mysql -u root -pmysql -e "CREATE USER 'repl'@'%' IDENTIFIED BY 'mysql';"
         mysql -u root -pmysql -e "GRANT REPLICATION SLAVE ON *.* TO 'repl'@'%' IDENTIFIED BY 'mysql';"
         mysql -u root -pmysql -e "FLUSH PRIVILEGES;"
         mysql -u root -pmysql -e "show master status;"
