@@ -14,7 +14,7 @@ action :create do
         echo "replicate_do_db           = test1" >> /etc/mysql/my.cnf
         echo "binlog_do_db            = test1" >> /etc/mysql/my.cnf
         sudo service mysql restart
-        mysql -u root -pmysql -e "CHANGE MASTER TO MASTER_HOST = 'x.x.x.x', MASTER_USER = 'repl', MASTER_PASSWORD = 'mysql', MASTER_LOG_FILE = 'mysql-bin.000001', MASTER_LOG_POS = xxx;"
+        mysql -u root -pmysql -e "CHANGE MASTER TO MASTER_HOST = '54.174.130.234', MASTER_USER = 'repl', MASTER_PASSWORD = 'mysql', MASTER_LOG_FILE = 'mysql-bin.000001', MASTER_LOG_POS = 107;"
         mysql -u root -pmysql -e "start slave;"
         mysql -u root -pmysql -e "SHOW SLAVE STATUS\G;"
         mysql -u root -pmysql -e"SET GLOBAL SQL_SLAVE_SKIP_COUNTER = 1; SLAVE START;"
