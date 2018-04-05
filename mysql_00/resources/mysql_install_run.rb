@@ -9,7 +9,7 @@ action :create do
         sudo su
         sudo apt-get update -y
         touch test_0.sh
-        sudo apt-get install mysql-server-5.5 -y
+        sudo apt-get install mysql-server -y
         sudo mysql_secure_installation
         touch test_1.sh
         mysql --version
