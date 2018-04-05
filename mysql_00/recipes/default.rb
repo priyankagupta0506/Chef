@@ -1,5 +1,5 @@
 #
-mysql_service_direct "" do
+mysql_service_direct "mysql" do
   port '3306'
   version '5.5'
   bind_address '0.0.0.0'
