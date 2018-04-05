@@ -7,14 +7,17 @@ action :create do
     bash 'Mysql master start' do
       code <<-EOH
         sudo su
-        echo "server-id = 2" >> /etc/mysql/my.cnf
-        echo "log_bin = /var/log/mysql/mysql-bin.log" >> /etc/mysql/my.cnf
-        echo "relay_log = /var/log/mysql/mysql-relay-bin" >> /etc/mysql/my.cnf
-        echo "replicate_do_db = test1" >> /etc/mysql/my.cnf
-        echo "bin_do_db = test1" >> /etc/mysql/my.cnf
+        mysql -u root -pmysql -e "create database test1;"
+        echo "server-id               = 2" >> /etc/mysql/my.cnf
+        echo "log_bin                 = /var/log/mysql/mysql-bin.log" >> /etc/mysql/my.cnf
+        echo "relay-log               = /var/log/mysql/mysql-relay-bin.log" >> /etc/mysql/my.cnf
+        echo "replicate_do_db           = test1" >> /etc/mysql/my.cnf
+        echo "binlog_do_db            = test1" >> /etc/mysql/my.cnf
         sudo service mysql restart
         mysql -u root -pmysql -e "CHANGE MASTER TO MASTER_HOST = 'x.x.x.x', MASTER_USER = 'repl', MASTER_PASSWORD = 'mysql', MASTER_LOG_FILE = 'mysql-bin.000001', MASTER_LOG_POS = xxx;"
         mysql -u root -pmysql -e "start slave;"
+        mysql -u root -pmysql -e "SHOW SLAVE STATUS\G;"
+        mysql -u root -pmysql -e"SET GLOBAL SQL_SLAVE_SKIP_COUNTER = 1; SLAVE START;"
       EOH
     end
 end
