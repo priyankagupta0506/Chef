@@ -1,10 +1,10 @@
 #
 #chef :: default recipe
 
-provides :rundeck_server
+provides :mysql_server_direct
 
 action :create do
-    bash 'Rundeck install and start' do
+    bash 'Mysql install and start' do
       code <<-EOH
         sudo su
         hostname -f
@@ -30,7 +30,7 @@ action :start do
     #notifies :start, "mysql_server_direct[mysql]", :immediately
 end
 action :stop do
-    bash 'Rundeck install and start' do
+    bash 'Mysql install and start' do
       code <<-EOH
         service mysql status 
         service mysql stop && service mysql status
@@ -39,7 +39,7 @@ action :stop do
     notifies :stop, "mysql_server_direct[mysql]", :immediately
 end
 action :restart do
-    bash 'Rundeck install and start' do
+    bash 'Mysql install and start' do
       code <<-EOH
         service mysql status 
         service mysql restart && service mysql status
