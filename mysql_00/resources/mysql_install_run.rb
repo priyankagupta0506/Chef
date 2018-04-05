@@ -7,13 +7,14 @@ action :create do
     bash 'Mysql install and start' do
       code <<-EOH
         sudo su
-        hostname -f
         sudo apt-get update -y
-        sudo apt-get upgrade -y
         sudo apt-get install mysql-server-5.5 -y
         sudo mysql_secure_installation
+        touch test_1.sh
         mysql --version
-        sudo mysql_install_db 
+        touch test_2.sh
+        sudo mysql_install_db
+        touch test_3.sh
         sudo service mysql status
         sudo service mysql start
         sudo netstat -antlp | grep 3306
