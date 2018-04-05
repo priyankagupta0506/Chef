@@ -10,7 +10,7 @@ action :create do
         sudo apt-get update -y
         echo "mysql-server mysql-server/root_password password mysql" | debconf-set-selections
         echo "mysql-server mysql-server/root_password_again password mysql" | debconf-set-selections
-        sudo apt-get install mysql-server -y
+        sudo apt-get install mysql-server-5.5 -y
         mysql --version
         touch test_2.sh
         sudo service mysql status
