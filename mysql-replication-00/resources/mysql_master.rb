@@ -8,6 +8,7 @@ action :create do
         sudo su
         echo "server-id = 1" >> /etc/mysql/my.cnf
         echo "log_bin = /var/log/mysql/mysql-bin.log" >> /etc/mysql/my.cnf
+        echo "binlog_do_db = test1" >> /etc/mysql/my.cnf
         sudo service mysql restart
         mysql -u root --password="" -e "CREATE USER 'repl'@'%' IDENTIFIED BY 'mysql';"
         mysql -u root --password="" -e "GRANT REPLICATION SLAVE ON *.* TO 'repl'@'%' IDENTIFIED BY 'mysql';"
