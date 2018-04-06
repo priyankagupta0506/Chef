@@ -7,6 +7,8 @@ action :create do
     bash 'Mysql slave start' do
       code <<-EOH
         sudo su
+        touch log_pos.sh
+        echo "mysql -u root --password="mysql" -ANe "SHOW MASTER STATUS;"" >> log_pos.sh
         mysql -u root -pmysql -e "show databases;"
         sudo sed --in-place '/log_bin/d' /etc/mysql/my.cnf
         echo "[mysqld]" >> /etc/mysql/my.cnf
