@@ -7,7 +7,7 @@ action :create do
     bash 'Mysql slave start' do
       code <<-EOH
         sudo su
-        mysql -u root -pmysql -e "create database test1;"
+        mysql -u root -pmysql -e "show databases;"
         sudo sed --in-place '/log_bin/d' /etc/mysql/my.cnf
         echo "[mysqld]" >> /etc/mysql/my.cnf
         echo "server-id               = 2" >> /etc/mysql/my.cnf
