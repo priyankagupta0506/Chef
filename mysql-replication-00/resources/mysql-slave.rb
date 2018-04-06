@@ -20,7 +20,6 @@ action :create do
         mysql -u root -pmysql -e "CHANGE MASTER TO MASTER_HOST = '54.196.147.188', MASTER_USER = 'repl', MASTER_PASSWORD = 'mysql', MASTER_LOG_FILE = 'mysql-bin.000001', MASTER_LOG_POS = 408;"
         mysql -u root -pmysql -e "START SLAVE;"
         mysql -u root -pmysql -e "SHOW SLAVE STATUS\G;"
-        mysql -u root -pmysql -e"SET GLOBAL SQL_SLAVE_SKIP_COUNTER = 1; SLAVE START;"
       EOH
     end
 end
