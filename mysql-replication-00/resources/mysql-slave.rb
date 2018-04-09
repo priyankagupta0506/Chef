@@ -18,13 +18,14 @@ action :create do
         echo "replicate_do_db           = test1" >> /etc/mysql/my.cnf
         echo "binlog_do_db            = test1" >> /etc/mysql/my.cnf
         sudo service mysql restart
-
+        
+        Master_DNS="x.x.x.x"
         scp -i ~/.ssh/mysql.pem /home/priyankagu/Desktop/pos.sh ubuntu@Master_DNS:/home/ubuntu
         pos=$(ssh -i ~/.ssh/mysql.pem ubuntu@Master_DNS "chmod 755 pos.sh | ./pos.sh")
         echo $pos
 
         mysql -u root -pmysql -e "STOP SLAVE;"
-        mysql -u root -pmysql -e "CHANGE MASTER TO MASTER_HOST = '54.196.147.188', MASTER_USER = 'repl', MASTER_PASSWORD = 'mysql', MASTER_LOG_FILE = 'mysql-bin.000001', MASTER_LOG_POS = 323;"
+        mysql -u root -pmysql -e "CHANGE MASTER TO MASTER_HOST = 'Master_DNS', MASTER_USER = 'repl', MASTER_PASSWORD = 'mysql', MASTER_LOG_FILE = 'mysql-bin.000001', MASTER_LOG_POS = $pos;"
         mysql -u root -pmysql -e "START SLAVE;"
         mysql -u root -pmysql -e "SHOW SLAVE STATUS;"
       EOH
