@@ -22,11 +22,6 @@ attribute :group_id, kind_of: Integer
 attribute :cookbook, kind_of: String, default: 'users'
 attribute :manage_nfs_home_dirs, kind_of: [TrueClass, FalseClass], default: true
 
-use_inline_resources
-
-def whyrun_supported?
-  true
-end
 
 action :remove do
   search(new_resource.data_bag, "groups:#{new_resource.search_group} AND action:remove") do |rm_user|
