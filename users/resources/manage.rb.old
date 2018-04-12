@@ -1,6 +1,7 @@
 #
 # Cookbook:: users
 # Resources:: manage
+
 property :data_bag, String, default: 'users'
 property :search_group, String, name_property: true
 property :group_name, String, name_property: true
