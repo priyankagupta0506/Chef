@@ -15,7 +15,7 @@ state_attrs :cookbook,
 # :group_name is the string name of the group to create, defaults to resource name
 # :group_id is the numeric id of the group to create, default is to allow the OS to pick next
 # :cookbook is the name of the cookbook that the authorized_keys template should be found in
-attribute :data_bag, kind_of: String, default: 'users'
+attribute :data_bag, kind_of: String, default: '/var/chef/runs/3cc464ba-cf0f-41b7-ae0d-4dcedb5c7522/data_bags/aws_opsworks_instance/'
 attribute :search_group, kind_of: String, name_attribute: true
 attribute :group_name, kind_of: String, name_attribute: true
 attribute :group_id, kind_of: Integer
