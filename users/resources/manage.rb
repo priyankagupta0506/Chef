@@ -24,7 +24,7 @@ attribute :manage_nfs_home_dirs, kind_of: [TrueClass, FalseClass], default: true
 
 
 action :remove do
-  search(new_resource.data_bag, "groups:#{new_resource.search_group} AND action:remove") do |rm_user|
+  search(search("aws_opsworks_instance").first, "groups:#{new_resource.search_group} AND action:remove") do |rm_user|
     user rm_user['username'] ||= rm_user['id'] do
       action :remove
       manage_home rm_user['manage_home'] ||= false
