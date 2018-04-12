@@ -2,8 +2,7 @@
 # Cookbook:: users
 # Recipe:: default
 #
-users_manage 'group' do
-  group_id 4000
-  action [:create]
-  data_bag 'test_home_dir'
+users_manage 'sysadmin' do
+  group_id 2300
+  action :create
 end
