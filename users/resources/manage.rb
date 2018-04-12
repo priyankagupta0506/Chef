@@ -1,5 +1,5 @@
 # Data bag user object needs an "action": "remove" tag to actually be removed by the action.
-provides :users_manage
+#provides :users_manage
 actions :create, :remove
 default_action :create
 
