@@ -31,8 +31,7 @@ action :create do
         public_host=$(curl -s 169.254.169.254/latest/meta-data/public-hostname ; echo)
         sudo echo "grails.serverURL=http://$public_host:4440" >> /etc/rundeck/rundeck-config.properties
         sudo service rundeckd status
-        sudo service rundeckd start
-        
+        sudo service rundeckd restart
         sudo netstat -antlp | grep 4440
         echo "check UI!!"
       EOH
