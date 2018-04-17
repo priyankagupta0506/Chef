@@ -27,8 +27,12 @@ action :create do
         echo "install rundeck!!"
         dpkg -i rundeck_2.10.8-1-GA_all.deb
         echo "start rundeck !!"
+        sudo sed --in-place '/localhost/d' /etc/rundeck/rundeck-config.properties
+        public_host=$(curl -s 169.254.169.254/latest/meta-data/public-hostname ; echo)
+        sudo echo "grails.serverURL=http://$public_host:4440" >> /etc/rundeck/rundeck-config.properties
         sudo service rundeckd status
         sudo service rundeckd start
+        
         sudo netstat -antlp | grep 4440
         echo "check UI!!"
       EOH
