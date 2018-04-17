@@ -28,8 +28,8 @@ action :create do
         dpkg -i rundeck_2.10.8-1-GA_all.deb
         echo "start rundeck !!"
         sudo sed --in-place '/localhost/d' /etc/rundeck/rundeck-config.properties
-        public_host=$(curl -s 169.254.169.254/latest/meta-data/public-hostname ; echo)
-        sudo echo "grails.serverURL=http://$public_host:4440" >> /etc/rundeck/rundeck-config.properties
+        public_ip=$(curl -s 169.254.169.254/latest/meta-data/public-ipv4 ; echo)
+        sudo echo "grails.serverURL=http://$public_ip:4440" >> /etc/rundeck/rundeck-config.properties
         sudo service rundeckd status
         sudo service rundeckd restart
         sudo netstat -antlp | grep 4440
